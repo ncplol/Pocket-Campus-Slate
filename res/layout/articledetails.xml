@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <ImageView
+            android:id="@+id/detailsLogo"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/earth" />
+
+        <TextView
+            android:id="@+id/detailstitle"
+            style="@android:style/TextAppearance.Large"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/detailsLogo"
+            android:background="#3366cc"
+            android:text="title"
+            android:textColor="#FFFFFF"
+            android:textIsSelectable="true"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/detailsauthor"
+            style="@android:style/TextAppearance.Small"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/detailstitle"
+            android:layout_toRightOf="@+id/detailsLogo"
+            android:background="#3366cc"
+            android:text="author"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/detailspubdate"
+            style="@android:style/TextAppearance.DeviceDefault.Small"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/detailsauthor"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/detailsauthor"
+            android:background="#3366cc"
+            android:text="date"
+            android:textColor="#FFFFFF"
+            android:textIsSelectable="true" />
+
+        <TextView
+            android:id="@+id/detailscontent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/detailsLogo"
+            android:background="#000000"
+            android:maxLines="1000"
+            android:scrollbars="vertical"
+            android:text="article content"
+            android:textColor="#FFFFFF"
+            android:textIsSelectable="true" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -19,7 +19,6 @@ public class ArticleDetails extends Activity {
 
         Intent intent = getIntent();
         detailsTitle.setText(intent.getStringExtra("keyTitle"));
-        //detailsContent.setMovementMethod(new ScrollingMovementMethod());
         detailsContent.setText(Html.fromHtml(intent.getStringExtra("keyContent")));
         detailsPubdate.setText(intent.getStringExtra("keyPubDate"));
 

@@ -80,7 +80,7 @@ class BiosListAdapter extends ArrayAdapter<Bios> {
 
         final String url;
         private Bitmap image;
-        final ImageView bioImg = (ImageView) rowView.findViewById(R.id.bioimage);
+        final ImageView bioImg = (ImageView) rowView.findViewById(R.id.biosimage);
 
         public GetImageFromServer(String url) {
             this.url = url;

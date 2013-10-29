@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nick Passaro"
-        android:id="@+id/textView2"
+        android:id="@+id/biosmajor"
         android:layout_gravity="center" />
 
     <ImageView
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Jason Scott"
-        android:id="@+id/textView3"
+        android:id="@+id/biospos"
         android:layout_gravity="center" />
 
     <ImageView

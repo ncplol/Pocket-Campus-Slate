@@ -19,7 +19,7 @@ public class BiosFragment extends Fragment {
     private final static String KEYMAJOR = "keyMajor";
     private final static String KEYPOS = "keyPos";
     private final static String KEYLOGO = "keyLogo";
-    private final static String KEYCONTENT = "keyContent";
+    //private final static String KEYCONTENT = "keyContent";
 
     private final BioHandler handler = new BioHandler();
     private List<Bios> bioList;

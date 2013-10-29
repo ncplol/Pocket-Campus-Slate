@@ -18,25 +18,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/biosimage"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/biosmajor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/biosname"
-        android:layout_toRightOf="@+id/biosimage"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/biospos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/biosmajor"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/biosmajor"
-        android:text="TextView" />
+        android:background="#3366CC"
+        android:text="Name" />
 
     <ListView
         android:id="@+id/biosarticles"
@@ -45,5 +28,26 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/biosimage" >
     </ListView>
+
+    <TextView
+        android:id="@+id/biosmajor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/biosname"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/biosname"
+        android:background="#3366CC"
+        android:text="Major" />
+
+    <TextView
+        android:id="@+id/biospos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/biosarticles"
+        android:layout_alignLeft="@+id/biosmajor"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/biosmajor"
+        android:background="#3366CC"
+        android:text="Position" />
 
 </RelativeLayout>

@@ -41,7 +41,7 @@ public class BiosFragment extends Fragment {
         bios.setAdapter(adapter);
         bios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), OrgDetails.class);
+                Intent intent = new Intent(getActivity(), BioDetails.class);
                 intent.putExtra(KEYNAME, handler.getBio(position).getName());
                 intent.putExtra(KEYMAJOR, handler.getBio(position).getMajor());
                 intent.putExtra(KEYPOS, handler.getBio(position).getPosition());

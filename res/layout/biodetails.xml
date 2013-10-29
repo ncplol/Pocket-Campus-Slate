@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/biosimage"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/facebook_head" />
+
+    <TextView
+        android:id="@+id/biosname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/biosimage"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/biosmajor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/biosname"
+        android:layout_toRightOf="@+id/biosimage"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/biospos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/biosmajor"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/biosmajor"
+        android:text="TextView" />
+
+    <ListView
+        android:id="@+id/biosarticles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/biosimage" >
+    </ListView>
+
+</RelativeLayout>

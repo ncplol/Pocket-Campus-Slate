@@ -25,7 +25,7 @@ public class BioDetails extends Activity {
 
         TextView detailName = (TextView) findViewById(R.id.biosname);
         TextView detailMajor = (TextView) findViewById(R.id.biosmajor);
-        TextView detailPos = (TextView) findViewById(R.id.biospos);
+        TextView detailPos = (TextView) findViewById(R.id.biopos);
         detailsLogo = (ImageView) findViewById(R.id.biosimage);
 
         Intent intent = getIntent();

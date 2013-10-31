@@ -1,64 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:focusable="false"
-    android:focusableInTouchMode="false"
-    android:background="#000000">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
 
     <ImageView
         android:id="@+id/articleimage"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:layout_gravity="center_vertical"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:background="@drawable/earth"
         android:contentDescription="@string/app_name"
         android:padding="7dp" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/articletitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#000000"
-        android:orientation="vertical" >
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/articleimage"
+        android:background="#3366CC"
+        android:text="Title"
+        android:textColor="#FFFFFF" />
 
-        <TextView
-            android:id="@+id/articletitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#000000"
-            android:paddingBottom="10dip"
-            android:paddingLeft="8dip"
-            android:paddingRight="8dip"
-            android:paddingTop="5dip"
-            android:text="Article Title"
-            android:textColor="#FFFFFF" />
+    <TextView
+        android:id="@+id/articledate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/articletitle"
+        android:layout_toRightOf="@+id/articleimage"
+        android:background="#3366CC"
+        android:text="Date"
+        android:textColor="#FFFFFF" />
 
-        <TextView
-            android:id="@+id/articleauthor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#000000"
-            android:paddingBottom="3dip"
-            android:paddingLeft="8dip"
-            android:paddingRight="8dip"
-            android:paddingTop="3dip"
-            android:text="Author"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp" />
+    <TextView
+        android:id="@+id/articleauthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/articleimage"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/articledate"
+        android:layout_toRightOf="@+id/articleimage"
+        android:background="#3366CC"
+        android:text="Author"
+        android:textColor="#FFFFFF" />
 
-        <TextView
-            android:id="@+id/articledate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#000000"
-            android:paddingBottom="3dip"
-            android:paddingLeft="8dip"
-            android:paddingRight="8dip"
-            android:paddingTop="3dip"
-            android:text="Pub Date"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp" />
-    </LinearLayout>
+    </RelativeLayout>
 
-</LinearLayout>
+    
+
+    

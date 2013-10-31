@@ -66,7 +66,7 @@ class OrgListAdapter extends ArrayAdapter<Orgs> {
 
         final String url;
         private Bitmap image;
-        final ImageView detailsLogo = (ImageView) rowView.findViewById(R.id.logo);
+        final ImageView detailsLogo = (ImageView) rowView.findViewById(R.id.orglogo);
 
         public GetImageFromServer(String url) {
             this.url = url;

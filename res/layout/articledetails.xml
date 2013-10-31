@@ -19,7 +19,6 @@
             style="@android:style/TextAppearance.Large"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/detailsauthor"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/detailsLogo"
             android:background="#3366cc"
@@ -32,7 +31,9 @@
             android:id="@+id/detailscontent"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/detailsLogo"
             android:background="#000000"
             android:maxLines="1000"
@@ -42,29 +43,29 @@
             android:textIsSelectable="true" />
 
         <TextView
+            android:id="@+id/detailsauthor"
+            style="@android:style/TextAppearance.Small"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/detailstitle"
+            android:layout_toRightOf="@+id/detailsLogo"
+            android:background="#3366cc"
+            android:text="author"
+            android:textColor="#FFFFFF" />
+
+        <TextView
             android:id="@+id/detailspubdate"
             style="@android:style/TextAppearance.DeviceDefault.Small"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/detailsLogo"
-            android:layout_alignParentRight="true"
+            android:layout_below="@+id/detailsauthor"
             android:layout_toRightOf="@+id/detailsLogo"
             android:background="#3366cc"
             android:text="date"
             android:textColor="#FFFFFF"
             android:textIsSelectable="true" />
-
-        <TextView
-            android:id="@+id/detailsauthor"
-            style="@android:style/TextAppearance.Small"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/detailspubdate"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/detailsLogo"
-            android:background="#3366cc"
-            android:text="author"
-            android:textColor="#FFFFFF" />
 
     </RelativeLayout>
 

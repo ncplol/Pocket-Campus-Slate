@@ -1,5 +1,7 @@
 package edu.nyit.pocketcampusslate;
 
+import java.util.List;
+
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,9 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.List;
-
-class OrgsFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class OrgsFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private final OrgHandler handler = new OrgHandler();
     private List<Orgs> orglist;

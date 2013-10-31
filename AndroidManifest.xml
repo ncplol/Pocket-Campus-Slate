@@ -15,9 +15,12 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo">
-        <activity android:name=".ArticleDetails" />
-        <activity android:name=".OrgDetails" />
-        <activity android:name=".BioDetails" />
+        <activity android:name=".ArticleDetails"
+            android:parentActivityName="edu.nyit.pocketcampusslate.MainActivity" />
+        <activity android:name=".OrgDetails"
+            android:parentActivityName="edu.nyit.pocketcampusslate.MainActivity" />
+        <activity android:name=".BioDetails"
+            android:parentActivityName="edu.nyit.pocketcampusslate.MainActivity" />
         <activity
             android:name="edu.nyit.pocketcampusslate.MainActivity"
             android:label="@string/app_name">

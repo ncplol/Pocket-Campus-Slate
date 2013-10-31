@@ -71,6 +71,10 @@ class ArticleHandler extends DefaultHandler {
             currentArticle.setEncodedContent(chars.toString());
         } else if (localName.equalsIgnoreCase("link")) {
             currentArticle.setUrl(chars.toString());
+        } else if (localName.equalsIgnoreCase("thumbnail")){
+        	currentArticle.setImg(chars.toString());
+        } else if (localName.equalsIgnoreCase("author")){
+        	currentArticle.setAuthor(chars.toString());
         }
 
         // Check if looking for article, and if article is complete

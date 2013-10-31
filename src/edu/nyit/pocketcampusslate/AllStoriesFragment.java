@@ -13,12 +13,12 @@ import android.widget.Toast;
 
 import java.util.List;
 
-class AllStoriesFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class AllStoriesFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private final static String KEYTITLE = "keyTitle";
     private final static String KEYPUBDATE = "keyPubDate";
-    private final static String KEYLINK = "keyLink";
-    private final static String KEYDESCRIPTION = "keyDescription";
+    //private final static String KEYLINK = "keyLink";
+    //private final static String KEYAUTHOR = "keyAuthor";
     private final static String KEYCONTENT = "keyContent";
 
     private final ArticleHandler myArticleHandler = new ArticleHandler();
@@ -80,9 +80,8 @@ class AllStoriesFragment extends Fragment implements AdapterView.OnItemClickList
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), ArticleDetails.class);
                 intent.putExtra(KEYPUBDATE, myArticleHandler.getArticle(position).getPubDate());
-                intent.putExtra(KEYLINK, myArticleHandler.getArticle(position).getUrl());
                 intent.putExtra(KEYTITLE, myArticleHandler.getArticle(position).getTitle());
-                intent.putExtra(KEYDESCRIPTION, myArticleHandler.getArticle(position).getDescription());
+                //intent.putExtra(KEYAUTHOR, myArticleHandler.getArticle(position).getAuthor());
                 intent.putExtra(KEYCONTENT, myArticleHandler.getArticle(position).getEncodedContent());
                 startActivity(intent);
             }

@@ -21,31 +21,31 @@ public class BiosFragment extends Fragment {
     private final static String KEYLOGO = "keyLogo";
     //private final static String KEYCONTENT = "keyContent";
 
-    private final BioHandler handler = new BioHandler();
-    private List<Bios> bioList;
-    private ListView bios;
+    private final BioHandler mHandler = new BioHandler();
+    private List<Bios> mBioList;
+    private ListView mBios;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_bios, null);
         if (rootView != null) {
-            bios = (ListView) rootView.findViewById(R.id.bioslist);
+            mBios = (ListView) rootView.findViewById(R.id.bioslist);
         }
-        if (bioList == null)
+        if (mBioList == null)
             new OrgTask().execute();
         return rootView;
     }
 
     void displayList() {
-        BiosListAdapter adapter = new BiosListAdapter(getActivity(), bioList);
-        bios.setAdapter(adapter);
-        bios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        BiosListAdapter adapter = new BiosListAdapter(getActivity(), mBioList);
+        mBios.setAdapter(adapter);
+        mBios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), BioDetails.class);
-                intent.putExtra(KEYNAME, handler.getBio(position).getName());
-                intent.putExtra(KEYMAJOR, handler.getBio(position).getMajor());
-                intent.putExtra(KEYPOS, handler.getBio(position).getPosition());
-                intent.putExtra(KEYLOGO, handler.getBio(position).getImg());
+                intent.putExtra(KEYNAME, mHandler.getBio(position).getName());
+                intent.putExtra(KEYMAJOR, mHandler.getBio(position).getMajor());
+                intent.putExtra(KEYPOS, mHandler.getBio(position).getPosition());
+                intent.putExtra(KEYLOGO, mHandler.getBio(position).getImg());
                 //intent.putExtra(KEYCONTENT, handler.getBio(position).getEncodedContent());
                 startActivity(intent);
             }
@@ -66,8 +66,8 @@ public class BiosFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... arg0) {
             String url = "http://www.campusslate.com/bios.xml";
-            if (bioList == null) {
-                bioList = handler.getBios(url);
+            if (mBioList == null) {
+                mBioList = mHandler.getBios(url);
             }
             return null;
         }

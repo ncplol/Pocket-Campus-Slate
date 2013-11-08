@@ -23,13 +23,13 @@ import java.util.List;
  */
 class BiosListAdapter extends ArrayAdapter<Bios> {
 
-    private final List<Bios> bioList;
-    private View rowView;
+    private final List<Bios> mBioList;
+    private View mRowView;
 
 
     public BiosListAdapter(Context context, List<Bios> bioList) {
         super(context, 0, bioList);
-        this.bioList = bioList;
+        this.mBioList = bioList;
     }
 
     @Override
@@ -39,35 +39,35 @@ class BiosListAdapter extends ArrayAdapter<Bios> {
         LayoutInflater inflater = activity.getLayoutInflater();
 
         // Inflate the views from XML
-        rowView = inflater.inflate(R.layout.rowbios, null);
+        mRowView = inflater.inflate(R.layout.rowbios, null);
 
         TextView name = null;
         TextView major = null;
         TextView pos = null;
 
-        if (rowView != null) {
-            name = (TextView) rowView.findViewById(R.id.bioname);
-            major = (TextView) rowView.findViewById(R.id.biomajor);
-            pos = (TextView) rowView.findViewById(R.id.biopos);
+        if (mRowView != null) {
+            name = (TextView) mRowView.findViewById(R.id.bioname);
+            major = (TextView) mRowView.findViewById(R.id.biomajor);
+            pos = (TextView) mRowView.findViewById(R.id.biopos);
         }
         if (name != null) {
-            name.setText(bioList.get(position).getName());
+            name.setText(mBioList.get(position).getName());
         }
         if (major != null) {
-            major.setText(bioList.get(position).getMajor());
+            major.setText(mBioList.get(position).getMajor());
         }
         if (pos != null) {
-            pos.setText(bioList.get(position).getPosition());
+            pos.setText(mBioList.get(position).getPosition());
         }
 
 //        if (rowView != null) {
 //            ImageView logo = (ImageView)rowView.findViewById(R.id.logo);
 //        }
-        String str_url = bioList.get(position).getImg();
+        String str_url = mBioList.get(position).getImg();
         GetImageFromServer asyObj = new GetImageFromServer(str_url);
         asyObj.execute("");
 
-        return rowView;
+        return mRowView;
 
     }
 
@@ -80,7 +80,7 @@ class BiosListAdapter extends ArrayAdapter<Bios> {
 
         final String url;
         private Bitmap image;
-        final ImageView bioImg = (ImageView) rowView.findViewById(R.id.biosimage);
+        final ImageView bioImg = (ImageView) mRowView.findViewById(R.id.biosimage);
 
         public GetImageFromServer(String url) {
             this.url = url;

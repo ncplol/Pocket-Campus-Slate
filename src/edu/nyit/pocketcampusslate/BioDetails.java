@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 public class BioDetails extends Activity {
 	
-	public ImageView detailsLogo;
+	public ImageView mDetailsLogo;
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class BioDetails extends Activity {
         TextView detailName = (TextView) findViewById(R.id.biosname);
         TextView detailMajor = (TextView) findViewById(R.id.biosmajor);
         TextView detailPos = (TextView) findViewById(R.id.biopos);
-        detailsLogo = (ImageView) findViewById(R.id.biosimage);
+        mDetailsLogo = (ImageView) findViewById(R.id.biosimage);
 
         Intent intent = getIntent();
 
@@ -70,7 +70,7 @@ public class BioDetails extends Activity {
 
         @Override
         protected void onPostExecute(Bitmap result) {
-            detailsLogo.setImageBitmap(result);
+            mDetailsLogo.setImageBitmap(result);
         }
 
     }

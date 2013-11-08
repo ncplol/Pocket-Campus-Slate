@@ -22,15 +22,15 @@ import javax.xml.parsers.SAXParserFactory;
  */
 class BioHandler extends DefaultHandler {
 
-    private Bios currentBio;
-    private final List<Bios> bioList = new ArrayList<Bios>();
+    private Bios mCurrentBio;
+    private final List<Bios> mBioList = new ArrayList<Bios>();
 
 
     //Current characters being accumulated
     private StringBuffer chars = new StringBuffer();
 
     public BioHandler() {
-        currentBio = new Bios();
+        mCurrentBio = new Bios();
     }
 
     /*
@@ -63,19 +63,19 @@ class BioHandler extends DefaultHandler {
 
 
         if (localName.equalsIgnoreCase("name")) {
-            currentBio.setName(chars.toString());
+            mCurrentBio.setName(chars.toString());
         } else if (localName.equalsIgnoreCase("major")) {
-            currentBio.setMajor(chars.toString());
+            mCurrentBio.setMajor(chars.toString());
         } else if (localName.equalsIgnoreCase("pos")) {
-            currentBio.setPosition(chars.toString());
+            mCurrentBio.setPosition(chars.toString());
         } else if (localName.equalsIgnoreCase("img")) {
-            currentBio.setImg(chars.toString());
+            mCurrentBio.setImg(chars.toString());
         }
 
         // Check if looking for an item, and if item is complete
         if (localName.equalsIgnoreCase("bio")) {
-            bioList.add(currentBio);
-            currentBio = new Bios();
+            mBioList.add(mCurrentBio);
+            mCurrentBio = new Bios();
         }
     }
 
@@ -116,10 +116,10 @@ class BioHandler extends DefaultHandler {
         } catch (ParserConfigurationException e) {
             Log.e("Bio Handler Parser", e.getMessage().toString());
         }
-        return bioList;
+        return mBioList;
     }
 
     public Bios getBio(int location) {
-        return bioList.get(location);
+        return mBioList.get(location);
     }
 }

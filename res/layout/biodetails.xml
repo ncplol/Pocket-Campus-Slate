@@ -18,7 +18,8 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/biosimage"
         android:background="#3366CC"
-        android:text="Name" />
+        android:text="Name"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/biospos"
@@ -29,7 +30,8 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/biosmajor"
         android:background="#3366CC"
-        android:text="Position" />
+        android:text="Position"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/biosmajor"
@@ -39,7 +41,8 @@
         android:layout_below="@+id/biosname"
         android:layout_toRightOf="@+id/biosimage"
         android:background="#3366CC"
-        android:text="Major" />
+        android:text="Major"
+        android:textColor="#FFFFFF" />
 
     <ListView
         android:id="@+id/biosarticles"

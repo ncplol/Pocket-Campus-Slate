@@ -13,17 +13,17 @@ import android.widget.Toast;
 
 import java.util.List;
 
-class AllStoriesFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class AllStoriesFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private final static String KEYTITLE = "keyTitle";
     private final static String KEYPUBDATE = "keyPubDate";
-    private final static String KEYLINK = "keyLink";
-    private final static String KEYDESCRIPTION = "keyDescription";
+    //private final static String KEYLINK = "keyLink";
+    private final static String KEYAUTHOR = "keyAuthor";
     private final static String KEYCONTENT = "keyContent";
 
-    private final ArticleHandler myArticleHandler = new ArticleHandler();
-    private List<Article> articleList;
-    private ListView allStories;
+    private final ArticleHandler mArticleHandler = new ArticleHandler();
+    private List<Article> mArticleList;
+    private ListView mAllStories;
 
     /**
      * ****************************************************************
@@ -39,8 +39,8 @@ class AllStoriesFragment extends Fragment implements AdapterView.OnItemClickList
         @Override
         protected Void doInBackground(Void... arg0) {
             String url = "http://www.campusslate.com/feed/";
-            if (articleList == null)
-                articleList = myArticleHandler.getLatestArticles(url);
+            if (mArticleList == null)
+                mArticleList = mArticleHandler.getLatestArticles(url);
             return null;
         }
 
@@ -65,25 +65,24 @@ class AllStoriesFragment extends Fragment implements AdapterView.OnItemClickList
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_allstories, null);
         if (rootView != null) {
-            allStories = (ListView) rootView.findViewById(R.id.allstories);
+            mAllStories = (ListView) rootView.findViewById(R.id.allstorieslist);
         }
-        if (articleList == null) {
+        if (mArticleList == null) {
             new ArticleTask().execute();
         }
         return rootView;
     }
 
     void displayList() {
-        ArticleListAdapter adapter = new ArticleListAdapter(getActivity(), articleList);
-        allStories.setAdapter(adapter);
-        allStories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ArticleListAdapter adapter = new ArticleListAdapter(getActivity(), mArticleList);
+        mAllStories.setAdapter(adapter);
+        mAllStories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), ArticleDetails.class);
-                intent.putExtra(KEYPUBDATE, myArticleHandler.getArticle(position).getPubDate());
-                intent.putExtra(KEYLINK, myArticleHandler.getArticle(position).getUrl());
-                intent.putExtra(KEYTITLE, myArticleHandler.getArticle(position).getTitle());
-                intent.putExtra(KEYDESCRIPTION, myArticleHandler.getArticle(position).getDescription());
-                intent.putExtra(KEYCONTENT, myArticleHandler.getArticle(position).getEncodedContent());
+                intent.putExtra(KEYPUBDATE, mArticleHandler.getArticle(position).getPubDate());
+                intent.putExtra(KEYTITLE, mArticleHandler.getArticle(position).getTitle());
+                intent.putExtra(KEYAUTHOR, mArticleHandler.getArticle(position).getAuthor());
+                intent.putExtra(KEYCONTENT, mArticleHandler.getArticle(position).getEncodedContent());
                 startActivity(intent);
             }
         });

@@ -13,6 +13,7 @@
             android:id="@+id/detailsLname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/detailsLogo"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/detailsLogo"
@@ -31,10 +32,10 @@
 
         <TextView
             android:id="@+id/detailsDescription"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/detailsLogo"
+            android:layout_below="@+id/detailsLname"
             android:background="#000000"
             android:clickable="false"
             android:maxLines="1000"

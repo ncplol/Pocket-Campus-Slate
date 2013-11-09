@@ -5,6 +5,7 @@ public class Article {
     private String title;
     private String description;//Not needed?
     private String img;
+    private String author;//Needs to be implemented
     private String pubDate;
     private String url;//Not needed?
     private String encodedContent;
@@ -81,5 +82,13 @@ public class Article {
     public String getImg() {
         return img;
     }
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 
 }

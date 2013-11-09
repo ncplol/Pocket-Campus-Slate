@@ -1,35 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="#000000"
-    android:baselineAligned="false">
+    android:layout_height="fill_parent" >
 
     <ImageView
-        android:id="@+id/logo"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:layout_gravity="center_vertical"
-        android:contentDescription="@string/app_name"
-        android:padding="7dp" />
+        android:id="@+id/orglogo"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/orgname"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#000000">
+        android:layout_alignBottom="@+id/orglogo"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/orglogo"
+        android:background="#3366CC"
+        android:text="Name"
+        android:textColor="#FFFFFF" />
 
-        <TextView
-            android:id="@+id/orgname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dip"
-            android:paddingLeft="8dip"
-            android:paddingRight="8dip"
-            android:paddingTop="5dip"
-            android:text="Org Name"
-            android:textColor="#FFFFFF"
-            android:background="#000000" />
-    </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

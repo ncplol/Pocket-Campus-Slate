@@ -1,65 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:focusable="false"
-    android:focusableInTouchMode="false"
-    android:background="#000000">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
 
-    <ImageView
-        android:id="@+id/bioimage"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:layout_gravity="center_vertical"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/app_name"
-        android:padding="7dp" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#000000">
+        <ImageView
+            android:id="@+id/biosimage"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
+            android:padding="7dp" />
 
         <TextView
             android:id="@+id/bioname"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dip"
-            android:paddingLeft="8dip"
-            android:paddingRight="8dip"
-            android:paddingTop="5dip"
+            android:layout_toRightOf="@+id/biosimage"
+            android:background="#3366cc"
             android:text="Name"
-            android:textColor="#FFFFFF"
-            android:layout_gravity="center_vertical|left"
-            android:background="#000000" />
-
-        <TextView
-            android:id="@+id/biopos"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="3dip"
-            android:paddingLeft="8dip"
-            android:paddingRight="8dip"
-            android:paddingTop="3dip"
-            android:text="Position"
-            android:textColor="#FFFFFF"
-            android:layout_gravity="left|center_vertical"
-            android:background="#000000" />
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/biomajor"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dip"
-            android:paddingLeft="8dip"
-            android:paddingRight="8dip"
-            android:paddingTop="5dip"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/bioname"
+            android:layout_toRightOf="@+id/biosimage"
+            android:background="#3366cc"
             android:text="Major"
-            android:textColor="#FFFFFF"
-            android:layout_gravity="left|center_vertical"
-            android:background="#000000" />
+            android:textColor="#FFFFFF" />
 
-    </LinearLayout>
-</LinearLayout>
+        <TextView
+            android:id="@+id/biopos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/biosimage"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/biomajor"
+            android:layout_toRightOf="@+id/biosimage"
+            android:background="#3366CC"
+            android:text="Position"
+            android:textColor="#FFFFFF" />
+
+    </RelativeLayout>

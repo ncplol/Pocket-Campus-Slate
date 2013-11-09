@@ -1,36 +1,55 @@
 package edu.nyit.pocketcampusslate;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.List;
 
-class BiosFragment extends Fragment {
+public class BiosFragment extends Fragment {
+	
+	private final static String KEYNAME = "keyName";
+    private final static String KEYMAJOR = "keyMajor";
+    private final static String KEYPOS = "keyPos";
+    private final static String KEYLOGO = "keyLogo";
+    //private final static String KEYCONTENT = "keyContent";
 
-    private final BioHandler handler = new BioHandler();
-    private List<Bios> bioList;
-    private ListView bios;
+    private final BioHandler mHandler = new BioHandler();
+    private List<Bios> mBioList;
+    private ListView mBios;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_bios, null);
         if (rootView != null) {
-            bios = (ListView) rootView.findViewById(R.id.bioslist);
+            mBios = (ListView) rootView.findViewById(R.id.bioslist);
         }
-        if (bioList == null)
+        if (mBioList == null)
             new OrgTask().execute();
         return rootView;
     }
 
     void displayList() {
-        BiosListAdapter adapter = new BiosListAdapter(getActivity(), bioList);
-        bios.setAdapter(adapter);
+        BiosListAdapter adapter = new BiosListAdapter(getActivity(), mBioList);
+        mBios.setAdapter(adapter);
+        mBios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), BioDetails.class);
+                intent.putExtra(KEYNAME, mHandler.getBio(position).getName());
+                intent.putExtra(KEYMAJOR, mHandler.getBio(position).getMajor());
+                intent.putExtra(KEYPOS, mHandler.getBio(position).getPosition());
+                intent.putExtra(KEYLOGO, mHandler.getBio(position).getImg());
+                //intent.putExtra(KEYCONTENT, handler.getBio(position).getEncodedContent());
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -47,8 +66,8 @@ class BiosFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... arg0) {
             String url = "http://www.campusslate.com/bios.xml";
-            if (bioList == null) {
-                bioList = handler.getBios(url);
+            if (mBioList == null) {
+                mBioList = mHandler.getBios(url);
             }
             return null;
         }

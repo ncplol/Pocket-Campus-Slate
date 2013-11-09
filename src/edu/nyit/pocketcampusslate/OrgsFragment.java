@@ -1,5 +1,7 @@
 package edu.nyit.pocketcampusslate;
 
+import java.util.List;
+
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,13 +13,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.List;
+public class OrgsFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-class OrgsFragment extends Fragment implements AdapterView.OnItemClickListener {
-
-    private final OrgHandler handler = new OrgHandler();
-    private List<Orgs> orglist;
-    private ListView orgs;
+    private final OrgHandler mHandler = new OrgHandler();
+    private List<Orgs> mOrglist;
+    private ListView mOrgs;
 
     private final static String KEYSNAME = "keySname";
     private final static String KEYDESCRIPTION = "keyDescription";
@@ -43,7 +43,7 @@ class OrgsFragment extends Fragment implements AdapterView.OnItemClickListener {
         @Override
         protected Void doInBackground(Void... arg0) {
             String url = "http://www.campusslate.com/orgs.xml";
-            orglist = handler.getOrgs(url);
+            mOrglist = mHandler.getOrgs(url);
             return null;
         }
 
@@ -64,23 +64,23 @@ class OrgsFragment extends Fragment implements AdapterView.OnItemClickListener {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_organizations, null);
         if (rootView != null) {
-            orgs = (ListView) rootView.findViewById(R.id.orgs);
+            mOrgs = (ListView) rootView.findViewById(R.id.orgslist);
         }
-        if (orglist == null)
+        if (mOrglist == null)
             new OrgTask().execute();
         return rootView;
     }
 
     void displayList() {
-        OrgListAdapter adapter = new OrgListAdapter(getActivity(), orglist);
-        orgs.setAdapter(adapter);
-        orgs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        OrgListAdapter adapter = new OrgListAdapter(getActivity(), mOrglist);
+        mOrgs.setAdapter(adapter);
+        mOrgs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), OrgDetails.class);
-                intent.putExtra(KEYSNAME, handler.getOrg(position).getSname());
-                intent.putExtra(KEYLNAME, handler.getOrg(position).getLname());
-                intent.putExtra(KEYDESCRIPTION, handler.getOrg(position).getDescription());
-                intent.putExtra(KEYLOGO, handler.getOrg(position).getLogo());
+                intent.putExtra(KEYSNAME, mHandler.getOrg(position).getSname());
+                intent.putExtra(KEYLNAME, mHandler.getOrg(position).getLname());
+                intent.putExtra(KEYDESCRIPTION, mHandler.getOrg(position).getDescription());
+                intent.putExtra(KEYLOGO, mHandler.getOrg(position).getLogo());
                 startActivity(intent);
             }
         });

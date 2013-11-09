@@ -14,23 +14,25 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class OrgDetails extends Activity {
-
-    public ImageView mDetailsLogo;
+public class BioDetails extends Activity {
+	
+	public ImageView mDetailsLogo;
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.orgdetails);
+        setContentView(R.layout.biodetails);
 
-        TextView detailsLname = (TextView) findViewById(R.id.detailsLname);
-        TextView detailsDescription = (TextView) findViewById(R.id.detailsDescription);
-        mDetailsLogo = (ImageView) findViewById(R.id.detailsLogo);
+        TextView detailName = (TextView) findViewById(R.id.biosname);
+        TextView detailMajor = (TextView) findViewById(R.id.biosmajor);
+        TextView detailPos = (TextView) findViewById(R.id.biopos);
+        mDetailsLogo = (ImageView) findViewById(R.id.biosimage);
 
         Intent intent = getIntent();
 
-        detailsLname.setText(intent.getStringExtra("keyLname"));
-        detailsDescription.setText(intent.getStringExtra("keyDescription"));
+        detailName.setText(intent.getStringExtra("keyName"));
+        detailMajor.setText(intent.getStringExtra("keyMajor"));
+        detailPos.setText(intent.getStringExtra("keyPos"));
         String str_url = intent.getStringExtra("keyLogo");
         GetImageFromServer asyObj = new GetImageFromServer(str_url);
         asyObj.execute("");
@@ -77,6 +79,5 @@ public class OrgDetails extends Activity {
      * End Async Task
      *****************************************************************
      */
+
 }
-
-

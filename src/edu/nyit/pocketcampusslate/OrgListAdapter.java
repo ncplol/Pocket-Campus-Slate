@@ -20,13 +20,13 @@ import java.util.List;
 
 class OrgListAdapter extends ArrayAdapter<Orgs> {
 
-    private final List<Orgs> orgList;
-    private View rowView;
+    private final List<Orgs> mOrgList;
+    private View mRowView;
 
 
     public OrgListAdapter(Context context, List<Orgs> orgList) {
         super(context, 0, orgList);
-        this.orgList = orgList;
+        this.mOrgList = orgList;
     }
 
     @Override
@@ -36,24 +36,24 @@ class OrgListAdapter extends ArrayAdapter<Orgs> {
         LayoutInflater inflater = activity.getLayoutInflater();
 
         // Inflate the views from XML
-        rowView = inflater.inflate(R.layout.roworgs, null);
+        mRowView = inflater.inflate(R.layout.roworgs, null);
 
         TextView orgName = null;
-        if (rowView != null) {
-            orgName = (TextView) rowView.findViewById(R.id.orgname);
+        if (mRowView != null) {
+            orgName = (TextView) mRowView.findViewById(R.id.orgname);
         }
         if (orgName != null) {
-            orgName.setText(orgList.get(position).getLname());
+            orgName.setText(mOrgList.get(position).getLname());
         }
 
 //        if (rowView != null) {
 //            ImageView logo = (ImageView)rowView.findViewById(R.id.logo);
 //        }
-        String str_url = orgList.get(position).getLogo();
+        String str_url = mOrgList.get(position).getLogo();
         GetImageFromServer asyObj = new GetImageFromServer(str_url);
         asyObj.execute("");
 
-        return rowView;
+        return mRowView;
 
     }
 
@@ -66,7 +66,7 @@ class OrgListAdapter extends ArrayAdapter<Orgs> {
 
         final String url;
         private Bitmap image;
-        final ImageView detailsLogo = (ImageView) rowView.findViewById(R.id.logo);
+        final ImageView detailsLogo = (ImageView) mRowView.findViewById(R.id.orglogo);
 
         public GetImageFromServer(String url) {
             this.url = url;

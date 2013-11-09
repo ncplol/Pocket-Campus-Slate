@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3366cc"
+    android:orientation="vertical" >
+
+    <!-- Staff member's name -->
+
+    <TextView
+        android:id="@+id/staff_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textColor="#fff"
+        android:textSize="36sp" />
+
+    <!-- Staff member's image -->
+
+    <ImageView
+        android:id="@+id/staff_image"
+        android:layout_width="256dp"
+        android:layout_height="321dp"
+        android:layout_below="@id/staff_title"
+        android:padding="20dp"
+        android:src="@drawable/test_staff_image" />
+
+    <!-- Staff member's bio -->
+
+    <TextView
+        android:id="@+id/staff_bio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/staff_title"
+        android:layout_marginTop="56dp"
+        android:layout_toRightOf="@id/staff_image"
+        android:padding="5dp"
+        android:textColor="#fff"
+        android:textSize="20sp" />
+    <!-- Link to staff member's page on website -->
+
+    <TextView
+        android:id="@+id/staff_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/staff_image"
+        android:padding="2dp"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+
+    <!-- Articles written by staff member -->
+
+    <ListView
+        android:id="@+id/staff_articles_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/staff_link" />
+
+</RelativeLayout>

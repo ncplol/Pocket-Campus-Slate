@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/jasonscott/Documents/School/NYIT/IEEE/Software%20Division/PocketSlateAndroid/workspace/PocketSlate/res/values/dimens.xml -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- From: file:/Users/jasonscott/Documents/School/NYIT/IEEE/Software%20Division/PocketSlateAndroid/workspace/PocketSlate/res/values/strings.xml -->
+    <string name="action_settings">Settings</string>
+    <string name="app_name">Pocket Slate</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="favorite_title">Favorite</string>
+    <string name="refresh">Refresh</string>
+    <string name="remove_title">Remove</string>
+    <string name="search_hint">Search</string>
+    <string name="search_title">Search</string>
+    <string name="share_title">Share</string>
+    <string name="test_author">Author</string>
+    <string name="test_category">Category</string>
+    <string name="test_content">Matt is a freshman studying Communication Arts with a focus in film and journalism. He one day hopes to be a film critic, or working behind the scenes in television production. In his free time, Matt enjoys spending time with friends as well as rooting for the Yankees and Giants.</string>
+    <string name="test_date">Fri, 27 Sep 2013 03:05:38</string>
+    <string name="test_link">http://www.campusslate.com/staff/2013/10/08/matt-santamaria-staff-writer/</string>
+    <string name="test_title">Matt Santamaria – Staff Writer</string>
+    <!-- From: file:/Users/jasonscott/Documents/School/NYIT/IEEE/Software%20Division/PocketSlateAndroid/workspace/PocketSlate/res/values/styles.xml -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="SplashScreen">
+        <item name="android:padding">0dp</item>
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:windowFrame">@null</item>
+    </style>
+
+</resources>

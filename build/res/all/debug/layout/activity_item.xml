@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+<!-- TODO ImageView for Item's image -->
+    
+<!-- TODO TextView for Item's Category -->
+
+<!-- TODO TextView for Item's Publication Date -->
+
+<!-- TODO TextView for Item's author -->
+
+<!-- TODO TextView for Item's Content -->
+
+<!-- TOODO TextView for Item's Link -->
+
+</LinearLayout>
+<!-- From: file:/Users/jasonscott/Documents/School/NYIT/IEEE/Software%20Division/PocketSlateAndroid/workspace/PocketSlate/res/layout/activity_item.xml -->

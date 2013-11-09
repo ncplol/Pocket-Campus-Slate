@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="1dp" >
+<!--     android:background="#3366cc" -->
+    
+<!--     android:background="@android:drawable/bottom_bar" -->
+     
+    
+    <!-- Item left-sided thumbnail -->
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginRight="5dp"
+        android:padding="1dp"
+        android:contentDescription="@string/app_name"/>
+    
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/item_image"
+        android:textColor="#000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        />
+    <TextView
+        android:id="@+id/item_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       	android:layout_below="@id/item_title"
+       	android:layout_toRightOf="@id/item_image"
+       	android:textColor="#000"
+       	android:textSize="14sp"
+       	/>
+    
+    
+
+</RelativeLayout>
+<!-- From: file:/Users/jasonscott/Documents/School/NYIT/IEEE/Software%20Division/PocketSlateAndroid/workspace/PocketSlate/res/layout-large-land/item_list_row.xml -->

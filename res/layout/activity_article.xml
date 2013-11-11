@@ -26,13 +26,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/article_image"
             android:background="#70000000"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:padding="10dp" >
 
             <TextView
                 android:id="@+id/article_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#fff"
+                android:textColor="#FFCC00"
                 android:textSize="14sp" />
 
             <TextView
@@ -41,19 +42,19 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:textColor="#fff"
+                android:textColor="#FFCC00"
                 android:textSize="14sp" />
         </RelativeLayout>
-        
+
         <TextView
             android:id="@+id/article_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="3dp"
             android:layout_below="@id/article_header"
+            android:padding="3dp"
             android:textColor="#fff"
             android:textSize="14sp"
-            android:textStyle="italic"/>
+            android:textStyle="italic" />
 
         <TextView
             android:id="@+id/article_content"
@@ -66,7 +67,7 @@
 
         <TextView
             android:id="@+id/article_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/article_image"
             android:layout_alignParentLeft="true"

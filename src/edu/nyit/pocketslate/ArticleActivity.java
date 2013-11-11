@@ -84,9 +84,9 @@ public class ArticleActivity extends Activity {
 		mImage.setImageResource(R.drawable.item_image_testing);
 		mTitle.setText(mArticle.title);
 		mCategory.setText(mArticle.category);
-		mPubDate.setText(mArticle.pubDate);
+		mPubDate.setText(mArticle.pubDate.substring(0, mArticle.pubDate.length() - 6));
 
-		mAuthor.setText("Jason Scott");
+		mAuthor.setText("by Author");
 
 		Spanned spanned = Html.fromHtml(mArticle.content);
 		mContent.setText(spanned);

@@ -52,7 +52,8 @@
             android:padding="3dp"
             android:layout_below="@id/article_header"
             android:textColor="#fff"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:textStyle="italic"/>
 
         <TextView
             android:id="@+id/article_content"

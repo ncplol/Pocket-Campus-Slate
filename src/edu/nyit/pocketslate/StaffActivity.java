@@ -8,7 +8,10 @@ import edu.nyit.pocketslateUtils.PocketSlateDbHelper;
 import edu.nyit.pocketslateUtils.PocketSlateReaderContract.ItemEntry;
 import static edu.nyit.pocketslate.Constants.*;
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -31,7 +34,6 @@ public class StaffActivity extends Activity {
 	private ListView mArticleList;
 	private TextView mTitle;
 	private TextView mBio;
-	private TextView mLink;
 	private ImageView mImage;
 	private PocketSlateDbHelper mPocketDbHelper;
 	private Item mStaffMember;
@@ -48,24 +50,22 @@ public class StaffActivity extends Activity {
 		mArticleList = (ListView)findViewById(R.id.staff_articles_list);
 		mTitle = (TextView)findViewById(R.id.staff_title);
 		mBio = (TextView)findViewById(R.id.staff_bio);
-		mLink = (TextView)findViewById(R.id.staff_link);
 		mImage = (ImageView)findViewById(R.id.staff_image);
 		
 		// Get date from MainActivity's Intent to use as identifier for entry in database
 		Bundle bundle = getIntent().getBundleExtra("staff");
 		mDate = bundle.getString("pub_date");
 		
-		mPocketDbHelper =  new PocketSlateDbHelper(this);
+		mPocketDbHelper =  PocketSlateDbHelper.getInstance(this);
 		
 		mStaffMember = mPocketDbHelper.getItem("staff", ItemEntry.COLUMN_NAMES[DATE], mDate);
+		
+		mImage.setImageResource(R.drawable.test_staff_image);
 		
 		mTitle.setText(mStaffMember.title);
 
 		Spanned spanned = Html.fromHtml(mStaffMember.content);
 		mBio.setText(spanned);
-
-		mLink.setText(mStaffMember.link);
-		mLink.setMovementMethod(LinkMovementMethod.getInstance());
 		
 		mArticleAdapter = new ItemListAdapter(this, mPocketDbHelper, "search");
 		mArticleList.setAdapter(mArticleAdapter);
@@ -114,7 +114,15 @@ public class StaffActivity extends Activity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
-		return super.onOptionsItemSelected(item);
+		switch(item.getItemId()) {
+		case R.id.staff_action_open_link:
+			Intent browser = new Intent(Intent.ACTION_VIEW);
+			browser.setData(Uri.parse(mStaffMember.link));
+			startActivity(browser);
+			return super.onOptionsItemSelected(item);
+		default:
+			NavUtils.navigateUpFromSameTask(this);
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }

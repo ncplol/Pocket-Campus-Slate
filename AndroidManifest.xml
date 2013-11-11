@@ -35,7 +35,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name="edu.nyit.pocketslate.ItemActivity"
+            android:name="edu.nyit.pocketslate.ArticleActivity"
             android:label="@string/app_name"
             android:parentActivityName="edu.nyit.pocketslate.MainActivity" >
             <meta-data

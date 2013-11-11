@@ -10,11 +10,12 @@ import edu.nyit.pocketslateUtils.PocketSlateDbHelper;
 import edu.nyit.pocketslateUtils.PocketSlateReaderContract.ItemEntry;
 import static edu.nyit.pocketslate.Constants.*;
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.Html;
 import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -22,12 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * <p>Title: ItemActivity.java</p>
- * <p>Description: </p>
+ * 
  * @author jasonscott
  *
  */
-public class ItemActivity extends Activity {
+public class ArticleActivity extends Activity {
 	//Instance Variables
 	private ImageView mImage;
 	private TextView mTitle;
@@ -40,61 +40,57 @@ public class ItemActivity extends Activity {
 	private String mDate;
 	private String mTableName;
 	private PocketSlateDbHelper mPocketDbHelper;
-	private Item mItem;
+	private Item mArticle;
 	private MenuItem mSaveMenuItem;
 	private boolean mIsSaved;
 	private boolean mFromSearch;
 
-	//Callback Methods
+	// Callback methods
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_item);
+		setContentView(R.layout.activity_article);
 
-		getActionBar().setDisplayHomeAsUpEnabled(true); 
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 
 		// Initialize Layouts
-		mImage = (ImageView)findViewById(R.id.item_image);
-		mTitle = (TextView)findViewById(R.id.item_title);
-		mCategory = (TextView)findViewById(R.id.item_category);
-		mPubDate = (TextView)findViewById(R.id.item_pubdate);
-		mAuthor = (TextView)findViewById(R.id.item_author);
-		mContent = (TextView)findViewById(R.id.item_content);
-		mLink = (TextView)findViewById(R.id.item_link);
-		
-		// Get bundle from MainActivity, need item's date and table name for searching
-		Bundle bundle = getIntent().getBundleExtra("item");
+		mImage = (ImageView)findViewById(R.id.article_image);
+		mTitle = (TextView)findViewById(R.id.article_title);
+		mCategory = (TextView)findViewById(R.id.article_category);
+		mPubDate = (TextView)findViewById(R.id.article_date);
+		mAuthor = (TextView)findViewById(R.id.article_author);
+		mContent = (TextView)findViewById(R.id.article_content);
+
+		// Get bundle from MainActivity, need item's date and table name to query database
+		Bundle bundle = getIntent().getBundleExtra("article");
 		mDate = bundle.getString("pub_date");
 		mTable = bundle.getString("table");
 
-		// If the calling activities open table is search
+		// Is the calling activities open table search
 		mFromSearch = mTable.equals("search") ? true : false;
-		
-		// Get item based on date from database
+
+		// Get article based on date from database
 		mPocketDbHelper = PocketSlateDbHelper.getInstance(this);
-		mItem = mPocketDbHelper.getItem(mTable, ItemEntry.COLUMN_NAMES[DATE], mDate);
-		
-		// Convert category to lower case replacing " " with "_" to match corresponding table name
-		mTableName = mItem.category.toLowerCase(Locale.US).replace(" ", "_");
-		
-		// Is the item saved
-		mIsSaved = mItem.saved != null ? true : false;
+		mArticle = mPocketDbHelper.getItem(mTable, ItemEntry.COLUMN_NAMES[DATE], mDate);
+
+		// Convert article's category to match table names in database
+		mTableName = mArticle.category.toLowerCase(Locale.US).replace(" ", "_");
+
+		// Is the article saved
+		mIsSaved = mArticle.saved != null ? true : false;
 
 		// Set Layout values
 		mImage.setImageResource(R.drawable.item_image_testing);
-		mTitle.setText(mItem.title);
-		mCategory.setText(mItem.category);
-		if(mDate != null && mDate.length() > 6) {
-			mPubDate.setText(mDate.substring(0,mDate.length()-6));
-		}
-		//mAuthor.setText(mItem.title);
+		mTitle.setText(mArticle.title);
+		mCategory.setText(mArticle.category);
+		mPubDate.setText(mArticle.pubDate);
 
-		Spanned spanned = Html.fromHtml(mItem.content);
+		mAuthor.setText("Jason Scott");
+
+		Spanned spanned = Html.fromHtml(mArticle.content);
 		mContent.setText(spanned);
 
-		mLink.setText(mItem.link);
-		mLink.setMovementMethod(LinkMovementMethod.getInstance());
 	}
 
 	@Override
@@ -134,8 +130,8 @@ public class ItemActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.item, menu);
-		mSaveMenuItem = menu.findItem(R.id.item_action_save);
+		getMenuInflater().inflate(R.menu.article, menu);
+		mSaveMenuItem = menu.findItem(R.id.article_action_save);
 		setMenuItem();
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -148,67 +144,66 @@ public class ItemActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
-		case R.id.item_action_search:
-			//TODO Search this article
-			return super.onOptionsItemSelected(item);
-		case R.id.item_action_save:
-			return mIsSaved ? removeFavorite(item) : addFavorite(item);
-		case R.id.item_action_share:
-			//TODO Share article link through Facebook, Twitter, E-Mail, Text, etc.
+		case R.id.article_action_save:
+			return mIsSaved ? removeSaved(item) : addSaved(item);
+		case R.id.article_action_open_link:
+			Intent browser = new Intent(Intent.ACTION_VIEW);
+			browser.setData(Uri.parse(mArticle.link));
+			startActivity(browser);
 			return super.onOptionsItemSelected(item);
 		default:
 			NavUtils.navigateUpFromSameTask(this);
 			return super.onOptionsItemSelected(item);
 		}
+
 	}
 
 	/**
-	 * Sets the save story menu item icon and title based on whether article is saved or not.
+	 * Sets the save story menu item icon and title if the article is saved or not.
 	 */
-	public void setMenuItem() {
+	private void setMenuItem() {
 		int resId = mIsSaved ? R.drawable.ic_action_remove : R.drawable.ic_favorite;
 		String title = mIsSaved ? "Remove" : " Save ";
 		mSaveMenuItem.setIcon(resId);
 		mSaveMenuItem.setTitle(title);
 	}
-
+	
 	/**
-	 * 
+	 * Adds an article to saved stories table of database.  Updates the articles saved field.
 	 * @param item
 	 * @return
 	 */
-	public boolean addFavorite(MenuItem item) {
-		mPocketDbHelper.updateItem(mTableName, ItemEntry.COLUMN_NAMES[SAVED], "saved", mItem.pubDate);
+	private boolean addSaved(MenuItem item) {
+		mPocketDbHelper.updateItem(mTableName, ItemEntry.COLUMN_NAMES[SAVED], "saved", mArticle.pubDate);
 		if(mFromSearch) {
-			mPocketDbHelper.updateItem(mTable, ItemEntry.COLUMN_NAMES[SAVED], "saved", mItem.pubDate);
+			mPocketDbHelper.updateItem(mTable, ItemEntry.COLUMN_NAMES[SAVED], "saved", mArticle.pubDate);
 		}
-		mPocketDbHelper.addItem(mPocketDbHelper.getItem(mTableName, ItemEntry.COLUMN_NAMES[DATE], mItem.pubDate), "saved_stories");
+		mPocketDbHelper.addItem(mPocketDbHelper.getItem(mTableName, ItemEntry.COLUMN_NAMES[DATE], mArticle.pubDate), "saved_stories");
 		mIsSaved = true;
 		setMenuItem();
-		Toast.makeText(this, "Added to Saved Stories.", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Added to Saved Stories", Toast.LENGTH_SHORT).show();
 		return super.onOptionsItemSelected(item);
 	}
 
 	/**
-	 * Removes an article from user's favorite table of database.
+	 *  Removes article from user's saved stories table of database.  Updates articles saved field.
 	 * @param item
 	 * @return
 	 */
-	public boolean removeFavorite(MenuItem item) {
-		mPocketDbHelper.updateItem(mTableName, ItemEntry.COLUMN_NAMES[SAVED], null, mItem.pubDate);
-		List<Item> items = mPocketDbHelper.getAllItems("saved_stories");
+	private boolean removeSaved(MenuItem item) {
+		mPocketDbHelper.updateItem(mTableName, ItemEntry.COLUMN_NAMES[SAVED], null, mArticle.pubDate);
+		List<Item> savedArticles = mPocketDbHelper.getAllItems("saved_stories");
 		int index = -1;
-		for(int i=0;i<items.size();i++) {
-			if(items.get(i).pubDate.equals(mItem.pubDate)) {
+		for(int i=0; i<savedArticles.size();i++) {
+			if(savedArticles.get(i).pubDate.equals(mArticle.pubDate)) {
 				index = i;
 			}
 		}
-		//int index = items.indexOf(mItem);
 		if(mPocketDbHelper.deleteItem("saved_stories", ItemEntry.COLUMN_NAMES[DATE], mDate)) {
-			items.remove(index);
+			savedArticles.remove(index);
 			mPocketDbHelper.deleteTable("saved_stories");
-			for(int i=0; i<items.size();i++) {
-				mPocketDbHelper.addItem(items.get(i), "saved_stories");
+			for(int i=0; i<savedArticles.size(); i++) {
+				mPocketDbHelper.addItem(savedArticles.get(i), "saved_stories");
 			}
 			mIsSaved = false;
 			setMenuItem();
@@ -219,4 +214,3 @@ public class ItemActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 }
-

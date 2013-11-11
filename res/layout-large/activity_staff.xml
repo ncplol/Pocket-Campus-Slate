@@ -22,8 +22,7 @@
         android:layout_width="256dp"
         android:layout_height="321dp"
         android:layout_below="@id/staff_title"
-        android:padding="20dp"
-        android:src="@drawable/test_staff_image" />
+        android:padding="20dp" />
 
     <!-- Staff member's bio -->
 
@@ -37,16 +36,6 @@
         android:padding="5dp"
         android:textColor="#fff"
         android:textSize="20sp" />
-    <!-- Link to staff member's page on website -->
-
-    <TextView
-        android:id="@+id/staff_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/staff_image"
-        android:padding="2dp"
-        android:textColor="#fff"
-        android:textSize="18sp" />
 
     <!-- Articles written by staff member -->
 
@@ -54,6 +43,6 @@
         android:id="@+id/staff_articles_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/staff_link" />
+        android:layout_below="@id/staff_image" />
 
 </RelativeLayout>

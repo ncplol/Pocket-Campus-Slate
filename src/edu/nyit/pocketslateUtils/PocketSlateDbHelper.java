@@ -25,6 +25,7 @@ import android.util.Log;
  */ 
 public class PocketSlateDbHelper extends SQLiteOpenHelper {
 	private static Context context;
+	private static PocketSlateDbHelper sInstance = null;
 	public static final int DATABASE_VERSION = 1;
 	public static final String DATABASE_NAME = "PocketSlate.db";
 	private static final String TEXT_TYPE = " TEXT";
@@ -44,10 +45,22 @@ public class PocketSlateDbHelper extends SQLiteOpenHelper {
 					ItemEntry.COLUMN_NAMES[SAVED] + TEXT_TYPE + " )";
 
 	/**
+	 * 
+	 * @param c
+	 * @return
+	 */
+	public static PocketSlateDbHelper getInstance(Context c) {
+		if(sInstance == null) {
+			sInstance = new PocketSlateDbHelper(c.getApplicationContext());
+		}
+		return sInstance;
+	}
+	
+	/**
 	 *  Constructs SQLiteDatabase Helper for managing applications database.
 	 * @param context - Applications Context
 	 */
-	public PocketSlateDbHelper(Context c) {
+	private PocketSlateDbHelper(Context c) {
 		super(context = c, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 

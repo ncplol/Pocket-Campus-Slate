@@ -129,7 +129,7 @@ public class MainActivity extends Activity {
 		mItemList = (ListView)findViewById(R.id.item_list);
 		mItemList.setOnItemClickListener(new ItemListClickListener());
 
-		mPocketDbHelper = new PocketSlateDbHelper(this);
+		mPocketDbHelper = PocketSlateDbHelper.getInstance(this);
 		mPocketXmlParser = new PocketSlateXmlParser(mPocketDbHelper);
 		
 		mOrgsXmlParser = new OrganizationsXmlParser(mPocketDbHelper);
@@ -349,7 +349,7 @@ public class MainActivity extends Activity {
 	private void handleIntent(Intent intent) {
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			String query = intent.getStringExtra(SearchManager.QUERY);
-			new SearchDbTask(query, ItemEntry.COLUMN_NAMES).execute(query, ItemEntry.COLUMN_NAMES[TITLE]);
+			new SearchDbTask(query, ItemEntry.COLUMN_NAMES, "Searching for \"" + query + "\"...").execute(query, ItemEntry.COLUMN_NAMES[TITLE]);
 		}
 	}
 
@@ -401,14 +401,21 @@ public class MainActivity extends Activity {
 		bundle.putString("pub_date", item.pubDate);
 		bundle.putString("table", mOpenTable);
 
-		Intent itemActivityIntent = new Intent(this, ItemActivity.class);
-		itemActivityIntent.putExtra("item", bundle);
+		Intent itemActivityIntent = new Intent(this, ArticleActivity.class);
+		itemActivityIntent.putExtra("article", bundle);
 		startActivity(itemActivityIntent);
 	}
 	
-	//TODO selectStaff method for staff activity
+	/**
+	 * Gets staff member from database based on user selection.  Creates a search task to find all
+	 * articles written by selected staff member.  Packages staff item's fields into bundle. Starts
+	 *  a StaffActivity.
+	 * @param position - position of user selection in list view.
+	 */
 	private void selectStaff(int position) {
 		Item item = mPocketDbHelper.getItem("staff", ItemEntry._ID, "" + (position));
+		
+		//TODO Create new search task to find all articles from all tables written by selected staff member. Cannot use current SearchDbTask
 		
 		Bundle bundle = new Bundle();
 		bundle.putString("pub_date", item.pubDate);
@@ -703,15 +710,17 @@ public class MainActivity extends Activity {
 
 		private String mQuery;
 		private String[] mColumn;
+		private String mMessage;
 
-		public SearchDbTask(String q, String[] c) {
+		public SearchDbTask(String q, String[] c, String m) {
 			mQuery = q;
 			mColumn = c;
+			mMessage = m;
 		}
 
 		@Override
 		protected void onPreExecute() {
-			createProgressDialog("Searching for \"" + mQuery + "\"...");
+			createProgressDialog(mMessage);
 		}
 
 		@Override

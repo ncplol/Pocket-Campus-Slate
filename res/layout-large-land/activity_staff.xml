@@ -45,6 +45,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/staff_bio"
         android:layout_below="@id/staff_bio"
-        android:layout_toRightOf="@id/staff_image" />
+        android:layout_toRightOf="@id/staff_image"
+        android:divider="#FFCC00"
+        android:dividerHeight=".75dp" />
 
 </RelativeLayout>

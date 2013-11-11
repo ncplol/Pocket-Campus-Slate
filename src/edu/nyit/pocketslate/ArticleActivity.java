@@ -35,7 +35,6 @@ public class ArticleActivity extends Activity {
 	private TextView mPubDate;
 	private TextView mAuthor;
 	private TextView mContent;
-	private TextView mLink;
 	private String mTable;
 	private String mDate;
 	private String mTableName;

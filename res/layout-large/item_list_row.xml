@@ -20,8 +20,7 @@
         android:layout_height="96dp"
         android:layout_marginRight="5dp"
         android:contentDescription="@string/app_name"
-        android:padding="1dp"
-        android:src="@drawable/item_image_testing" />
+        android:padding="1dp"/>
 
     <TextView
         android:id="@+id/item_title"

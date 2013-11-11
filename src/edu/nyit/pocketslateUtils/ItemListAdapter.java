@@ -9,7 +9,6 @@ import edu.nyit.pocketslate.Item;
 import edu.nyit.pocketslate.R;
 import android.app.Activity;
 import android.content.Context;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,7 +81,7 @@ public class ItemListAdapter extends BaseAdapter {
 		ImageView image = (ImageView)v.findViewById(R.id.item_image);
 		TextView title = (TextView)v.findViewById(R.id.item_title);
 		TextView date = (TextView)v.findViewById(R.id.item_date);
-		
+		image.setImageResource(R.drawable.item_image_testing);
 		title.setText(mItems.get(position).title);
 		String dateText = mItems.get(position).pubDate;
 		if(dateText != null && dateText.length() > 6) {

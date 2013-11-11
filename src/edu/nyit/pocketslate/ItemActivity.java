@@ -33,7 +33,6 @@ public class ItemActivity extends Activity {
 	private TextView mTitle;
 	private TextView mCategory;
 	private TextView mPubDate;
-	private TextView mAuthor;
 	private TextView mContent;
 	private TextView mLink;
 	private String mTable;
@@ -59,7 +58,6 @@ public class ItemActivity extends Activity {
 		mTitle = (TextView)findViewById(R.id.item_title);
 		mCategory = (TextView)findViewById(R.id.item_category);
 		mPubDate = (TextView)findViewById(R.id.item_pubdate);
-		mAuthor = (TextView)findViewById(R.id.item_author);
 		mContent = (TextView)findViewById(R.id.item_content);
 		mLink = (TextView)findViewById(R.id.item_link);
 		

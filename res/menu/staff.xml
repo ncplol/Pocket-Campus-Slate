@@ -2,9 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     
     <item
-        android:id="@+id/staff_action_save"
-        android:showAsAction="ifRoom|withText" />
-    <item
         android:id="@+id/staff_action_open_link"
         android:showAsAction="ifRoom|withText"
         android:title="@string/open_web_title"

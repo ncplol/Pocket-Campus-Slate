@@ -43,6 +43,8 @@
         android:id="@+id/staff_articles_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/staff_image" />
+        android:layout_below="@id/staff_image"
+        android:divider="#FFCC00"
+        android:dividerHeight=".75dp" />
 
 </RelativeLayout>

@@ -3,7 +3,6 @@
  */
 package edu.nyit.pocketslate;
 
-import android.app.ProgressDialog;
 
 /**
  * <p>Title: Constants.java</p>
@@ -16,6 +15,7 @@ public interface Constants {
 	// URLS for the campus slate
 	public static final String URL_RSS = "http://www.campusslate.com/feed/";
 	public static final String URL_ORGS = "http://www.campusslate.com/orgs.xml";
+	public static final String URL_STAFF = "http://www.campusslate.com/bios.xml";
 	
 	// For ItemEntry.TABLE_NAMES
 	public static final int TOP_STORIES = 0;

@@ -14,9 +14,10 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.Html;
 import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,6 +40,8 @@ public class StaffActivity extends Activity {
 	private Item mStaffMember;
 	private String mDate;
 	private ItemListAdapter mArticleAdapter;
+	private View mArticleHeader;						
+	private TextView mArticleHeaderText;				
 	
 	// Callback methods
 	@Override
@@ -68,7 +71,17 @@ public class StaffActivity extends Activity {
 		mBio.setText(spanned);
 		
 		mArticleAdapter = new ItemListAdapter(this, mPocketDbHelper, "search");
+		
+		mArticleHeader = getLayoutInflater().inflate(R.layout.item_list_header, null, true);
+		mArticleList.addHeaderView(mArticleHeader, null, false);
+		mArticleHeaderText = (TextView)findViewById(R.id.item_header);
+		
 		mArticleList.setAdapter(mArticleAdapter);
+		
+		String name = mStaffMember.title;
+		int end = name.indexOf(" Ð ");
+		name = name.substring(0, end);
+		mArticleHeaderText.setText("Articles written by " + name);
 	}
 	
 	@Override

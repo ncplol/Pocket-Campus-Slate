@@ -6,6 +6,7 @@ package edu.nyit.pocketslateUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -124,9 +125,9 @@ public class ItemListAdapter extends BaseAdapter {
 				return BitmapFactory.decodeStream(downloadUrl(url[0]));
 			} catch (IOException e) {
 				e.printStackTrace();
+				Log.d("Bitmap doInBackground() IOException: ", e.getMessage());
 				return null;
 			}
-
 		}
 
 		@Override
@@ -136,7 +137,7 @@ public class ItemListAdapter extends BaseAdapter {
 			}
 		}
 
-		private InputStream downloadUrl(String urlString) throws IOException {
+		private InputStream downloadUrl(String urlString) throws IOException, MalformedURLException {
 			URL url = new URL(urlString);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setReadTimeout(5000 /* milliseconds */);

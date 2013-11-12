@@ -92,10 +92,11 @@ public class ArticleActivity extends Activity {
 		mCategory.setText(mArticle.category);
 		mPubDate.setText(mArticle.pubDate.substring(0, mArticle.pubDate.length() - 6));
 
-		mAuthor.setText("by Author");
+		mAuthor.setText(mArticle.author);
 
 		Spanned spanned = Html.fromHtml(mArticle.content);
 		mContent.setText(spanned);
+		//mContent.setText(mArticle.content);
 		
 		new DownloadBitmapTask().execute(mArticle.imageUrl);
 

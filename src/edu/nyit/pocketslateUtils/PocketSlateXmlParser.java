@@ -77,16 +77,21 @@ public class PocketSlateXmlParser {
 					break;
 				case XmlPullParser.END_TAG:
 					if(tagName.equalsIgnoreCase("item")) {
-						if(link != null) {
-							String tag = new String();
-							if(category.equals("Staff")) {
-								tag = "widgetbody";
-							} else {
-								tag = "permalinkphotobox";
-							}
-							imageUrl = parseUrlForImage(link, tag);
+						
+						// Check for image URL within content.
+						if(content.contains("img src")) {
+							int start = content.indexOf("img src=") + 9;
+							int end = content.indexOf("\"", start);		// Index of " implying end of the link
+							imageUrl = content.substring(start, end);
 						}
-						mItem = new Item(null, title, link, description, content, category, imageUrl, pubDate, "Author", null);
+						
+						// Separate the div with image link from the content
+						if(content.contains("<p>")) {
+							int contentStart = content.indexOf("<p>");
+							content = content.substring(contentStart);
+						}
+
+						mItem = new Item(null, title, link, description, content, category, imageUrl, pubDate, author, null);
 						addItem(mItem);
 					} else if(tagName.equalsIgnoreCase("title")) {
 						title = mText;
@@ -100,6 +105,8 @@ public class PocketSlateXmlParser {
 						description = mText;
 					} else if(tagName.equalsIgnoreCase("encoded")) {
 						content = mText;
+					} else if(tagName.equalsIgnoreCase("author")) {
+						author = mText;
 					} else if(tagName.equalsIgnoreCase("lastBuildDate")) {
 						mLastBuild = buildStringToDate(mText);
 					} 
@@ -249,31 +256,5 @@ public class PocketSlateXmlParser {
 		}
 
 		return d;
-	}
-	
-	/**
-	 * 
-	 * @param url
-	 * @param tag
-	 * @return
-	 */
-	private String parseUrlForImage(String url, String tag) {
-		String imageUrl = new String();
-		try {
-			Document doc = Jsoup.connect(url).get();
-			Elements elements = doc.select("div." + tag);
-			Element element = elements.first();
-			if(element != null) {
-				String link = element.toString();
-				if(link.contains(".png") || link.contains(".jpg") || link.contains(".gif")) {
-					int start = link.indexOf("src");
-					int end = link.indexOf(" ", start);
-					imageUrl = link.substring(start + 5, end - 1);
-				}
-			}
-		} catch(IOException e) {
-
-		}
-		return imageUrl;
 	}
 }

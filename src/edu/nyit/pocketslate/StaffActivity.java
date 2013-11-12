@@ -94,7 +94,7 @@ public class StaffActivity extends Activity {
 			name = name.substring(0, end);
 		}
 		mArticleHeaderText.setText("Articles written by " + name);
-		if(mStaffMember.imageUrl.length() > 0) {
+		if(mStaffMember.imageUrl != null) {
 			new DownloadBitmapTask().execute(mStaffMember.imageUrl);
 		}
 	}

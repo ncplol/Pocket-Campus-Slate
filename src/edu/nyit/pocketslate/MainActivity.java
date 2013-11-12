@@ -542,16 +542,19 @@ public class MainActivity extends Activity {
 				loadXmlOrgsFromNetwork(urls[1]);
 			} catch(BuildDateException e) {
 				Log.d("BuildDateException Caught", e.getMessage());
+				e.printStackTrace();
 				if(mProgressDialog != null) {
 					mProgressDialog.dismiss();
 				}
 				this.cancel(true);
 			} catch(XmlPullParserException e) {
 				Log.d("doInBackground():", "XmlPullParserException: " + e.getMessage() );
+				e.printStackTrace();
 				error = true;
 				this.cancel(true);
 			} catch(IOException e) {
-				Log.d("doInBackground():", "IOException: " + e.getMessage() );
+				Log.d("doInBackground():", "IOException: " + e.getMessage());
+				e.printStackTrace();
 				error = true;
 				this.cancel(true);
 			} 

@@ -50,6 +50,14 @@
                 android:name="android_support.PARENT_ACTIVITY"
                 android:value="edu.nyit.pocketslate.MainActivity" />
         </activity>
+        <activity
+            android:name="edu.nyit.pocketslate.OrganizationActivity"
+            android:label="@string/app_name"
+            android:parentActivityName="edu.nyit.pocketslate.MainActivity">
+            <meta-data
+                android:name="android_support.PARENT_ACTIVITY"
+                android:value="edu.nyit.pocketslate.MainActivity"/>
+        </activity>
     </application>
 
 </manifest>

@@ -13,6 +13,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -73,6 +77,15 @@ public class PocketSlateXmlParser {
 					break;
 				case XmlPullParser.END_TAG:
 					if(tagName.equalsIgnoreCase("item")) {
+						if(link != null) {
+							String tag = new String();
+							if(category.equals("Staff")) {
+								tag = "widgetbody";
+							} else {
+								tag = "permalinkphotobox";
+							}
+							imageUrl = parseUrlForImage(link, tag);
+						}
 						mItem = new Item(null, title, link, description, content, category, imageUrl, pubDate, "Author", null);
 						addItem(mItem);
 					} else if(tagName.equalsIgnoreCase("title")) {
@@ -128,7 +141,7 @@ public class PocketSlateXmlParser {
 			mDbHelper.addItem(item, ItemEntry.TABLE_NAMES[STAFF]);
 		}
 	}
-	
+
 	/**
 	 * Parses in looking for the last build of the XML data.
 	 * @param in, InputStream, from MainActivity's DownloadContentTask's downloadUrl method.  
@@ -158,7 +171,7 @@ public class PocketSlateXmlParser {
 				else
 					skip(parser);
 			}
-			
+
 		} finally {
 			in.close();
 		}
@@ -238,4 +251,29 @@ public class PocketSlateXmlParser {
 		return d;
 	}
 	
+	/**
+	 * 
+	 * @param url
+	 * @param tag
+	 * @return
+	 */
+	private String parseUrlForImage(String url, String tag) {
+		String imageUrl = new String();
+		try {
+			Document doc = Jsoup.connect(url).get();
+			Elements elements = doc.select("div." + tag);
+			Element element = elements.first();
+			if(element != null) {
+				String link = element.toString();
+				if(link.contains(".png") || link.contains(".jpg") || link.contains(".gif")) {
+					int start = link.indexOf("src");
+					int end = link.indexOf(" ", start);
+					imageUrl = link.substring(start + 5, end - 1);
+				}
+			}
+		} catch(IOException e) {
+
+		}
+		return imageUrl;
+	}
 }

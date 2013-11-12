@@ -12,6 +12,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.xmlpull.v1.XmlPullParserException;
 
 import edu.nyit.pocketslateExceptions.BuildDateException;
@@ -37,13 +41,16 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.util.LruCache;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -70,7 +77,7 @@ public class MainActivity extends Activity {
 
 	private PocketSlateDbHelper mPocketDbHelper;	// For storing and retrieving all items
 	private PocketSlateXmlParser mPocketXmlParser;	// Parser for campus slate RSS feed
-	
+
 	private ListView mItemList;						// ListView of articles/items
 	private View mItemHeader;						// Header View for mItemList ListView
 	private TextView mItemHeaderText;				// TextView of header View
@@ -88,7 +95,7 @@ public class MainActivity extends Activity {
 	private SearchView mSearchView;					// SearchView for searching applications database
 
 	//TODO StaffActivity(ListView of articles written.  RSS needs to be updated) and OrgActivity
-	
+
 	//TODO Downloading and storing bitmaps, loading symbol in place of image until downloaded
 
 	//TODO Memory and Disk Cache for bitmaps
@@ -131,21 +138,19 @@ public class MainActivity extends Activity {
 
 		mPocketDbHelper = PocketSlateDbHelper.getInstance(this);
 		mPocketXmlParser = new PocketSlateXmlParser(mPocketDbHelper);
-		
+
 		mOrgsXmlParser = new OrganizationsXmlParser(mPocketDbHelper);
 
 		mItemListAdapter = new ItemListAdapter(this, mPocketDbHelper, mOpenTable);
-		
+
 		mItemHeader = getLayoutInflater().inflate(R.layout.item_list_header, null, true);
 		mItemList.addHeaderView(mItemHeader, null, false);
-		
+
 		mItemHeaderText = (TextView)findViewById(R.id.item_header);
 
 		mItemList.setAdapter(mItemListAdapter);
-		
 
 		handleIntent(getIntent());
-
 	}
 
 	@Override
@@ -180,12 +185,12 @@ public class MainActivity extends Activity {
 		} else {
 			mRefresh = true;						
 		}
-		
+
 		if(mRefresh) {
 			loadPage();								// Content to be refreshed
 		} else {
 			selectMenuItem(mOpenTable);
-			
+
 		}
 	}
 
@@ -297,7 +302,7 @@ public class MainActivity extends Activity {
 		menuItems.add(new MenuHeader(""));
 		menuItems.add(new MenuOption("Settings", "", R.drawable.ic_action_settings));
 		menuItems.add(new MenuOption("About", "", R.drawable.ic_action_about));
-		
+
 		// Instantiate MenuListAdapter and set sliding menu to DrawerListAdapter.
 		mDrawerListAdapter = new MenuListAdapter(this, menuItems);
 		mDrawerList.setAdapter(mDrawerListAdapter);
@@ -330,7 +335,7 @@ public class MainActivity extends Activity {
 			} else {
 				selectArticle(position);
 			}
-			
+
 		}
 
 	}
@@ -381,7 +386,7 @@ public class MainActivity extends Activity {
 			split[i] = split[i].substring(0, 1).toUpperCase(Locale.US) + split[i].substring(1);
 			finalTitle += " " + split[i];
 		}
-		
+
 		setTitle(finalTitle);
 		mItemListAdapter.update(mOpenTable);
 		mItemListAdapter.notifyDataSetChanged();
@@ -405,7 +410,7 @@ public class MainActivity extends Activity {
 		itemActivityIntent.putExtra("article", bundle);
 		startActivity(itemActivityIntent);
 	}
-	
+
 	/**
 	 * Gets staff member from database based on user selection.  Creates a search task to find all
 	 * articles written by selected staff member.  Packages staff item's fields into bundle. Starts
@@ -413,13 +418,11 @@ public class MainActivity extends Activity {
 	 * @param position - position of user selection in list view.
 	 */
 	private void selectStaff(int position) {
-		Item item = mPocketDbHelper.getItem("staff", ItemEntry._ID, "" + (position));
-		
 		//TODO Create new search task to find all articles from all tables written by selected staff member. Cannot use current SearchDbTask
-		
+
 		Bundle bundle = new Bundle();
-		bundle.putString("pub_date", item.pubDate);
-		
+		bundle.putInt("position", position);
+
 		Intent staffActivityIntent = new Intent(this, StaffActivity.class);
 		staffActivityIntent.putExtra("staff", bundle);
 		startActivity(staffActivityIntent);
@@ -427,16 +430,21 @@ public class MainActivity extends Activity {
 
 	//TODO selectOrg method then org activity
 	private void selectOrg(int position) {
-		
+		Bundle bundle = new Bundle();
+		bundle.putInt("position", position);
+
+		Intent orgActivityIntent = new Intent(this, OrganizationActivity.class);
+		orgActivityIntent.putExtra("organization", bundle);
+		startActivity(orgActivityIntent);
 	}
-	
+
 	/**
 	 * Instantiates the AsyncTask and calls execute.
 	 */
 	private void loadPage() {
 		new DownloadContentTask(this).execute(new String[]{URL_RSS, URL_ORGS });
 	}
-	
+
 	/**
 	 *  Instantiates a mProgressDialog to show user the application is performing a task.
 	 * @param text - String of message to user to be displayed in the dialog
@@ -457,7 +465,6 @@ public class MainActivity extends Activity {
 		//Display the progress dialog  
 		mProgressDialog.show();
 	}
-
 
 	/**
 	 * <p>Description: Created in the event of an error connecting to the network. </p>
@@ -516,7 +523,7 @@ public class MainActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
-			
+
 			// Get device orientation and prevent a configuration change
 			if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
@@ -558,17 +565,17 @@ public class MainActivity extends Activity {
 			if(mProgressDialog != null) {
 				mProgressDialog.dismiss();
 			}
-			
+
 			// Allow for configuration change
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-			
+
 			// On successful download, save the times of the last build and current time the content refreshed.
 			if(currentBuild != null) {
 				mLastBuild = currentBuild;
 				mLastBuildLong = mLastBuild.getTime();
 				mLastRefreshLong = new Date().getTime();
 			}
-			
+
 			// Populate ListView from database table
 			selectMenuItem(mOpenTable);
 		}
@@ -578,10 +585,10 @@ public class MainActivity extends Activity {
 		protected void onCancelled(Void result) {
 			if(mProgressDialog != null)
 				mProgressDialog.dismiss();
-			
+
 			// Allow for configuration change
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-			
+
 			// IOException or XmlPullParserException caught.  Network error.
 			if(error) {
 				mActivity.runOnUiThread(new Runnable() {
@@ -593,11 +600,11 @@ public class MainActivity extends Activity {
 				// BuildDateException, alert user that all content is up to date.
 				Toast toast = Toast.makeText(getApplicationContext(), "All content is up to date", Toast.LENGTH_SHORT);
 				toast.show();
-				
+
 				// Update last user refresh
 				mLastRefreshLong = new Date().getTime();
 			}
-			
+
 			// Check that there is a database to allow for offline viewing.
 			if(databaseExists()) {
 				selectMenuItem(mOpenTable);
@@ -618,39 +625,39 @@ public class MainActivity extends Activity {
 			InputStream stream = null;
 			InputStream tempStream = null;
 			try {
-				
+
 				// Temporary stream for checking build date
 				tempStream = downloadUrl(url);
 				currentBuild = mPocketXmlParser.parseLastBuildDate(tempStream);
-				
+
 				if(mLastBuild != null && currentBuild.compareTo(mLastBuild) == 0) {
 					throw new BuildDateException("Build Dates Match");
 				}
-				
+
 				// If content needs to be updated, delete all tables for updated tables
 				if(databaseExists()) {
 					for(String table : ItemEntry.TABLE_NAMES) {
 						mPocketDbHelper.deleteTable(table);
 					}
 				}
-				
+
 				stream = downloadUrl(url);
 				mPocketXmlParser.parse(stream);
-				
+
 			} finally {
-				
+
 				// Close streams
 				if(stream != null) {
 					stream.close();
 				}
-				
+
 				if(tempStream != null) {
 					tempStream.close();
 				}
 			}
 		}
 
-		
+
 		/**
 		 * Calls OrganizationXmlParser's parse method passing InputStream from connection.
 		 * file and passing it.
@@ -706,7 +713,7 @@ public class MainActivity extends Activity {
 	 * @author jasonscott
 	 *
 	 */
-	public class SearchDbTask extends AsyncTask<String, Void, Boolean> {
+	private class SearchDbTask extends AsyncTask<String, Void, Boolean> {
 
 		private String mQuery;
 		private String[] mColumn;

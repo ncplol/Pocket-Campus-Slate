@@ -3,6 +3,10 @@
  */
 package edu.nyit.pocketslate;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
@@ -11,7 +15,10 @@ import edu.nyit.pocketslateUtils.PocketSlateReaderContract.ItemEntry;
 import static edu.nyit.pocketslate.Constants.*;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.Html;
@@ -80,7 +87,7 @@ public class ArticleActivity extends Activity {
 		mIsSaved = mArticle.saved != null ? true : false;
 
 		// Set Layout values
-		mImage.setImageResource(R.drawable.item_image_testing);
+		//mImage.setImageResource(R.drawable.item_image_testing);
 		mTitle.setText(mArticle.title);
 		mCategory.setText(mArticle.category);
 		mPubDate.setText(mArticle.pubDate.substring(0, mArticle.pubDate.length() - 6));
@@ -89,6 +96,8 @@ public class ArticleActivity extends Activity {
 
 		Spanned spanned = Html.fromHtml(mArticle.content);
 		mContent.setText(spanned);
+		
+		new DownloadBitmapTask().execute(mArticle.imageUrl);
 
 	}
 
@@ -211,5 +220,45 @@ public class ArticleActivity extends Activity {
 			Toast.makeText(this, "Failed to remove!", Toast.LENGTH_SHORT).show();
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	private class DownloadBitmapTask extends AsyncTask<String, Void, Bitmap> {
+
+		@Override
+		protected void onPreExecute() {
+			mImage.setImageResource(R.drawable.ic_action_refresh);
+		}
+
+		@Override
+		protected Bitmap doInBackground(String... url) {
+
+			try {
+				return BitmapFactory.decodeStream(downloadUrl(url[0]));
+			} catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			}
+
+		}
+
+		@Override
+		protected void onPostExecute(Bitmap result) {
+			if(result != null) {
+				mImage.setImageBitmap(result);
+			}
+		}
+
+		private InputStream downloadUrl(String urlString) throws IOException {
+			URL url = new URL(urlString);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setReadTimeout(5000 /* milliseconds */);
+			conn.setConnectTimeout(5000/*milliseconds*/);
+			conn.setRequestMethod("GET");
+			conn.setDoInput(true);
+			conn.connect();
+			InputStream stream = conn.getInputStream();
+			return stream;
+		}
+
 	}
 }

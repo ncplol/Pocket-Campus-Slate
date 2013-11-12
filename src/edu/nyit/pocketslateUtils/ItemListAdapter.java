@@ -3,12 +3,25 @@
  */
 package edu.nyit.pocketslateUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import edu.nyit.pocketslate.Item;
 import edu.nyit.pocketslate.R;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +38,14 @@ import android.widget.TextView;
  *
  */
 public class ItemListAdapter extends BaseAdapter {
-	
+
 	private Activity mActivity;
 	private static LayoutInflater sInflater = null;
 	private PocketSlateDbHelper mPocketDbHelper;
 	private List<Item> mItems;
 	private String mTableName;
-	
+	private ImageView mImage;
+
 	/**
 	 * Constructs the adapter for list of items
 	 * @param a - Activity, applications MainActivity to get layout inflater
@@ -45,7 +59,7 @@ public class ItemListAdapter extends BaseAdapter {
 		mPocketDbHelper = dbH;
 		mItems = mPocketDbHelper.getAllItems(mTableName);
 	}
-	
+
 	/**
 	 *  Update the ArrayList of Items by getting all items from the database
 	 *  of a particular table.
@@ -53,9 +67,8 @@ public class ItemListAdapter extends BaseAdapter {
 	 */
 	public void update(String tableName) {
 		mItems = mPocketDbHelper.getAllItems(tableName);
-		Log.d("update done here","");
 	}
-	
+
 	@Override
 	public int getCount() {
 		return mItems.size();
@@ -70,18 +83,17 @@ public class ItemListAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
-	
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-	
+
 		View v = convertView;
 		if(convertView == null) {
 			v = sInflater.inflate(R.layout.item_list_row, null);
 		}
-		ImageView image = (ImageView)v.findViewById(R.id.item_image);
+		mImage = (ImageView)v.findViewById(R.id.item_image);
 		TextView title = (TextView)v.findViewById(R.id.item_title);
 		TextView date = (TextView)v.findViewById(R.id.item_date);
-		image.setImageResource(R.drawable.item_image_testing);
 		title.setText(mItems.get(position).title);
 		String dateText = mItems.get(position).pubDate;
 		if(dateText != null && dateText.length() > 6) {
@@ -89,9 +101,52 @@ public class ItemListAdapter extends BaseAdapter {
 		} else {
 			date.setText("");
 		}
+		new DownloadBitmapTask(mImage).execute(mItems.get(position).imageUrl);
 		return v;
 	}
-	
-	
 
+	private class DownloadBitmapTask extends AsyncTask<String, Void, Bitmap> {
+		private ImageView mImageView;
+
+		public DownloadBitmapTask(ImageView i) {
+			mImageView = i;
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			mImageView.setImageResource(R.drawable.ic_action_refresh);
+		}
+
+		@Override
+		protected Bitmap doInBackground(String... url) {
+
+			try {
+				return BitmapFactory.decodeStream(downloadUrl(url[0]));
+			} catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			}
+
+		}
+
+		@Override
+		protected void onPostExecute(Bitmap result) {
+			if(result != null) {
+				mImageView.setImageBitmap(result);
+			}
+		}
+
+		private InputStream downloadUrl(String urlString) throws IOException {
+			URL url = new URL(urlString);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setReadTimeout(5000 /* milliseconds */);
+			conn.setConnectTimeout(5000/*milliseconds*/);
+			conn.setRequestMethod("GET");
+			conn.setDoInput(true);
+			conn.connect();
+			InputStream stream = conn.getInputStream();
+			return stream;
+		}
+
+	}
 }

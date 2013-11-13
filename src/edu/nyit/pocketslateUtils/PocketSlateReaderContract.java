@@ -45,5 +45,6 @@ public final class PocketSlateReaderContract {
 			"thats_what_she_said", 
 			"bears_to_watch",
 		"search"};
+		
 	}
 }

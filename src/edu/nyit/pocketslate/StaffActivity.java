@@ -14,6 +14,7 @@ import edu.nyit.pocketslateUtils.PocketSlateReaderContract.ItemEntry;
 import static edu.nyit.pocketslate.Constants.*;
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -26,6 +27,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,7 +38,7 @@ import android.widget.TextView;
  *
  */
 
-//TODO Authors bio, image, and list of articles written.
+//TODO Get articles written by staff member and apply to list view
 public class StaffActivity extends Activity {
 
 	// Instance Variables
@@ -50,6 +52,7 @@ public class StaffActivity extends Activity {
 	private ItemListAdapter mArticleAdapter;
 	private View mArticleHeader;						
 	private TextView mArticleHeaderText;				
+	private String mName;
 
 	// Callback methods
 	@Override
@@ -71,8 +74,6 @@ public class StaffActivity extends Activity {
 
 		mStaffMember = mPocketDbHelper.getItem("staff", ItemEntry._ID, "" + mPosition);
 
-		//mImage.setImageResource(R.drawable.test_staff_image);
-
 		mTitle.setText(mStaffMember.title);
 
 		Spanned spanned = Html.fromHtml(mStaffMember.content);
@@ -86,14 +87,18 @@ public class StaffActivity extends Activity {
 
 		mArticleList.setAdapter(mArticleAdapter);
 
-		String name = mStaffMember.title;
-		if(name.contains("Pranav")) {
-			 name = "Pranav Krishnamurthy";
+		// The dash in pranavs is missing a space and won't split properly
+		mName = mStaffMember.title;
+		if(mName.contains("Pranav")) {
+			mName = "Pranav Krishnamurthy";
 		} else {
-			int end= name.indexOf(" Ð ");
-			name = name.substring(0, end);
+			// Split name and position
+			int end= mName.indexOf(" Ð ");
+			mName = mName.substring(0, end);
 		}
-		mArticleHeaderText.setText("Articles written by " + name);
+		mArticleHeaderText.setText("Articles written by " + mName);
+		
+		// If there is an image link start task to download bitmap
 		if(mStaffMember.imageUrl != null) {
 			new DownloadBitmapTask().execute(mStaffMember.imageUrl);
 		}
@@ -154,6 +159,11 @@ public class StaffActivity extends Activity {
 		}
 	}
 
+	/**
+	 * 
+	 * @author jasonscott
+	 *
+	 */
 	private class DownloadBitmapTask extends AsyncTask<String, Void, Bitmap> {
 
 		@Override
@@ -180,6 +190,12 @@ public class StaffActivity extends Activity {
 			}
 		}
 
+		/**
+		 * Makes a connection to a given URL and returns InputStream
+		 * @param urlString
+		 * @return
+		 * @throws IOException
+		 */
 		private InputStream downloadUrl(String urlString) throws IOException {
 			URL url = new URL(urlString);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -192,5 +208,16 @@ public class StaffActivity extends Activity {
 			return stream;
 		}
 
+	}
+	
+	//TODO Write click listener for article list
+	private class ArticleClickListener implements ListView.OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			
+		}
+		
 	}
 }

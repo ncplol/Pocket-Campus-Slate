@@ -11,11 +11,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import edu.nyit.pocketslate.Item;
 import edu.nyit.pocketslate.R;
 import android.app.Activity;
@@ -95,6 +90,8 @@ public class ItemListAdapter extends BaseAdapter {
 		mImage = (ImageView)v.findViewById(R.id.item_image);
 		TextView title = (TextView)v.findViewById(R.id.item_title);
 		TextView date = (TextView)v.findViewById(R.id.item_date);
+		TextView author = (TextView)v.findViewById(R.id.item_author);
+		author.setText("by " + mItems.get(position).author);
 		title.setText(mItems.get(position).title);
 		String dateText = mItems.get(position).pubDate;
 		if(dateText != null && dateText.length() > 6) {
@@ -125,7 +122,6 @@ public class ItemListAdapter extends BaseAdapter {
 				return BitmapFactory.decodeStream(downloadUrl(url[0]));
 			} catch (IOException e) {
 				e.printStackTrace();
-				Log.d("Bitmap doInBackground() IOException: ", e.getMessage());
 				return null;
 			}
 		}
@@ -137,7 +133,13 @@ public class ItemListAdapter extends BaseAdapter {
 			}
 		}
 
-		private InputStream downloadUrl(String urlString) throws IOException, MalformedURLException {
+		/**
+		 * 
+		 * @param urlString
+		 * @return
+		 * @throws IOException
+		 */
+		private InputStream downloadUrl(String urlString) throws IOException {
 			URL url = new URL(urlString);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setReadTimeout(5000 /* milliseconds */);

@@ -13,10 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -105,7 +101,7 @@ public class PocketSlateXmlParser {
 						description = mText;
 					} else if(tagName.equalsIgnoreCase("encoded")) {
 						content = mText;
-					} else if(tagName.equalsIgnoreCase("author")) {
+					} else if(tagName.equalsIgnoreCase("creator")) {
 						author = mText;
 					} else if(tagName.equalsIgnoreCase("lastBuildDate")) {
 						mLastBuild = buildStringToDate(mText);

@@ -42,6 +42,7 @@
         android:layout_below="@id/item_date"
         android:layout_toRightOf="@id/item_image"
         android:textColor="#fff"
-        android:textSize="14sp" />
+        android:textSize="14sp" 
+        android:textStyle="italic" />
 
 </RelativeLayout>

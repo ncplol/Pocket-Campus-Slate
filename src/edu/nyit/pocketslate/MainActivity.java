@@ -12,10 +12,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.xmlpull.v1.XmlPullParserException;
 
 import edu.nyit.pocketslateExceptions.BuildDateException;
@@ -94,8 +90,8 @@ public class MainActivity extends Activity {
 
 	private SearchView mSearchView;					// SearchView for searching applications database
 
-	//TODO StaffActivity(ListView of articles written.  RSS needs to be updated) and OrgActivity
-
+	//TODO How to populate listview in StaffActivity for articles written by staff member
+	
 	//TODO Downloading and storing bitmaps, loading symbol in place of image until downloaded
 
 	//TODO Memory and Disk Cache for bitmaps
@@ -419,7 +415,7 @@ public class MainActivity extends Activity {
 	 */
 	private void selectStaff(int position) {
 		//TODO Create new search task to find all articles from all tables written by selected staff member. Cannot use current SearchDbTask
-
+		
 		Bundle bundle = new Bundle();
 		bundle.putInt("position", position);
 
@@ -541,19 +537,16 @@ public class MainActivity extends Activity {
 				loadXmlFromNetwork(urls[0]);
 				loadXmlOrgsFromNetwork(urls[1]);
 			} catch(BuildDateException e) {
-				Log.d("BuildDateException Caught", e.getMessage());
 				e.printStackTrace();
 				if(mProgressDialog != null) {
 					mProgressDialog.dismiss();
 				}
 				this.cancel(true);
 			} catch(XmlPullParserException e) {
-				Log.d("doInBackground():", "XmlPullParserException: " + e.getMessage() );
 				e.printStackTrace();
 				error = true;
 				this.cancel(true);
 			} catch(IOException e) {
-				Log.d("doInBackground():", "IOException: " + e.getMessage());
 				e.printStackTrace();
 				error = true;
 				this.cancel(true);
@@ -708,7 +701,6 @@ public class MainActivity extends Activity {
 			}
 			return false;
 		}
-
 	}
 
 	/**

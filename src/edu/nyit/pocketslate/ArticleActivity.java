@@ -87,16 +87,14 @@ public class ArticleActivity extends Activity {
 		mIsSaved = mArticle.saved != null ? true : false;
 
 		// Set Layout values
-		//mImage.setImageResource(R.drawable.item_image_testing);
 		mTitle.setText(mArticle.title);
 		mCategory.setText(mArticle.category);
 		mPubDate.setText(mArticle.pubDate.substring(0, mArticle.pubDate.length() - 6));
 
-		mAuthor.setText(mArticle.author);
+		mAuthor.setText("by " + mArticle.author);
 
 		Spanned spanned = Html.fromHtml(mArticle.content);
 		mContent.setText(spanned);
-		//mContent.setText(mArticle.content);
 		
 		new DownloadBitmapTask().execute(mArticle.imageUrl);
 

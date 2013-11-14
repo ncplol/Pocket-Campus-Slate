@@ -96,7 +96,11 @@ public class ArticleActivity extends Activity {
 		Spanned spanned = Html.fromHtml(mArticle.content);
 		mContent.setText(spanned);
 		
-		new DownloadBitmapTask().execute(mArticle.imageUrl);
+		if(mArticle.imageUrl != null) {
+			new DownloadBitmapTask().execute(mArticle.imageUrl);
+		} else {
+			mImage.setImageResource(R.drawable.splash_horizontal);
+		}
 
 	}
 

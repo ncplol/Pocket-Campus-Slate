@@ -686,7 +686,7 @@ public class MainActivity extends Activity {
 			
 			URL url = new URL(urlString);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			//conn.setReadTimeout(5000 /* milliseconds */);
+			conn.setReadTimeout(15000 /* milliseconds */);
 			conn.setConnectTimeout(5000/*milliseconds*/);
 			conn.setRequestMethod("GET");
 			conn.setDoInput(true);

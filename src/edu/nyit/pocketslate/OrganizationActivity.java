@@ -47,8 +47,12 @@ public class OrganizationActivity extends Activity {
 
 		Spanned spanned = Html.fromHtml(mOrganization.content);
 		mDescription.setText(spanned);
-		
-		new DownloadBitmapTask().execute(mOrganization.imageUrl);
+
+		if(mOrganization.imageUrl != null) {
+			new DownloadBitmapTask().execute(mOrganization.imageUrl);
+		} else {
+			mLogo.setImageResource(R.drawable.splash_horizontal);
+		}
 	}
 
 	@Override

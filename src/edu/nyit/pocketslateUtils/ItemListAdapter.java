@@ -116,7 +116,7 @@ public class ItemListAdapter extends BaseAdapter {
 			//Log.d("imageUrl for " + item.title + " is", item.imageUrl);
 			new DownloadBitmapTask(mImage).execute(item.imageUrl);
 		} else {
-			mImage.setImageResource(R.drawable.ic_action_refresh);
+			mImage.setImageResource(R.drawable.splash_horizontal);
 		}
 		return v;
 	}

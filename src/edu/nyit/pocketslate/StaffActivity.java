@@ -84,15 +84,8 @@ public class StaffActivity extends Activity {
 
 		mArticleList.setAdapter(mArticleAdapter);
 
-		// The dash in pranavs is missing a space and won't split properly
 		mName = mStaffMember.title;
-//		if(mName.contains("Pranav")) {
-//			mName = "Pranav Krishnamurthy";
-//		} else {
-//			// Split name and position
-//			int end= mName.indexOf(" Ð ");
-//			mName = mName.substring(0, end);
-//		}
+
 		// Split name and position
 		int end= mName.indexOf(" Ð ");
 		mName = mName.substring(0, end);
@@ -102,6 +95,8 @@ public class StaffActivity extends Activity {
 		// If there is an image link start task to download bitmap
 		if(mStaffMember.imageUrl != null) {
 			new DownloadBitmapTask().execute(mStaffMember.imageUrl);
+		} else {
+			mImage.setImageResource(R.drawable.splash_horizontal);
 		}
 	}
 

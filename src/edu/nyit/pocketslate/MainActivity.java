@@ -535,7 +535,7 @@ public class MainActivity extends Activity {
 				loadXmlFromNetwork(urls[0]);
 				loadXmlOrgsFromNetwork(urls[1]);
 			} catch(BuildDateException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 				if(mProgressDialog != null) {
 					mProgressDialog.dismiss();
 				}
@@ -670,29 +670,29 @@ public class MainActivity extends Activity {
 		 */
 		private InputStream downloadUrl(String urlString) throws IOException {
 			
-			try {
-				URL url = new URL(urlString);
-				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-				conn.setReadTimeout(5000 /* milliseconds */);
-				conn.setConnectTimeout(5000/*milliseconds*/);
-				conn.setRequestMethod("GET");
-				conn.setDoInput(true);
-				conn.connect();
-				InputStream stream = conn.getInputStream();
-				return stream;
-			} catch(IOException e) {
-				return getApplicationContext().getAssets().open("rss.xml");	
-			}
+//			try {
+//				URL url = new URL(urlString);
+//				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//				conn.setReadTimeout(5000 /* milliseconds */);
+//				conn.setConnectTimeout(5000/*milliseconds*/);
+//				conn.setRequestMethod("GET");
+//				conn.setDoInput(true);
+//				conn.connect();
+//				InputStream stream = conn.getInputStream();
+//				return stream;
+//			} catch(IOException e) {
+//				return getApplicationContext().getAssets().open("rss.xml");	
+//			}
 			
-//			URL url = new URL(urlString);
-//			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//			conn.setReadTimeout(5000 /* milliseconds */);
-//			conn.setConnectTimeout(5000/*milliseconds*/);
-//			conn.setRequestMethod("GET");
-//			conn.setDoInput(true);
-//			conn.connect();
-//			InputStream stream = conn.getInputStream();
-//			return stream;
+			URL url = new URL(urlString);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			//conn.setReadTimeout(5000 /* milliseconds */);
+			conn.setConnectTimeout(5000/*milliseconds*/);
+			conn.setRequestMethod("GET");
+			conn.setDoInput(true);
+			conn.connect();
+			InputStream stream = conn.getInputStream();
+			return stream;
 		}
 
 		/**

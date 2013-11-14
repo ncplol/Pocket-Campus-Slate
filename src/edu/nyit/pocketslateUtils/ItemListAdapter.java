@@ -80,7 +80,7 @@ public class ItemListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Item item = mItems.get(position);
-		
+
 		View v = convertView;
 		if(convertView == null) {
 			v = sInflater.inflate(R.layout.item_list_row, null);
@@ -97,6 +97,10 @@ public class ItemListAdapter extends BaseAdapter {
 			if(strs.length > 1) { 
 				date.setText(strs[1]); 
 			}
+		} else if(mTableName.equals("clubs_and_organizations")) {
+			author.setText("");
+			date.setText("");
+			title.setText(item.title);
 		} else {
 			author.setText("by " + item.author);
 			title.setText(item.title);
@@ -107,11 +111,7 @@ public class ItemListAdapter extends BaseAdapter {
 				date.setText("");
 			}
 		}
-		
-		if(item.author.equals("adviser")) {
-			author.setText("");
-		}
-		
+
 		if(item.imageUrl != null) {
 			//Log.d("imageUrl for " + item.title + " is", item.imageUrl);
 			new DownloadBitmapTask(mImage).execute(item.imageUrl);

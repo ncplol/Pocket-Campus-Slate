@@ -6,9 +6,7 @@ package edu.nyit.pocketslateUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.nyit.pocketslate.Item;
@@ -18,7 +16,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +59,7 @@ public class ItemListAdapter extends BaseAdapter {
 	 * @param tableName -  String of table name in database currently selected
 	 */
 	public void update(String tableName) {
-		mItems = mPocketDbHelper.getAllItems(tableName);
+		mItems = mPocketDbHelper.getAllItems(mTableName = tableName);
 	}
 
 	@Override
@@ -82,24 +79,45 @@ public class ItemListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-
+		Item item = mItems.get(position);
+		
 		View v = convertView;
 		if(convertView == null) {
 			v = sInflater.inflate(R.layout.item_list_row, null);
 		}
+
 		mImage = (ImageView)v.findViewById(R.id.item_image);
 		TextView title = (TextView)v.findViewById(R.id.item_title);
 		TextView date = (TextView)v.findViewById(R.id.item_date);
 		TextView author = (TextView)v.findViewById(R.id.item_author);
-		author.setText("by " + mItems.get(position).author);
-		title.setText(mItems.get(position).title);
-		String dateText = mItems.get(position).pubDate;
-		if(dateText != null && dateText.length() > 6) {
-			date.setText(dateText.substring(0,(dateText.length()-6)));
+
+		if(mTableName.equals("staff")) {
+			String[] strs = item.title.split("Ð");
+			title.setText(strs[0]);
+			if(strs.length > 1) { 
+				date.setText(strs[1]); 
+			}
 		} else {
-			date.setText("");
+			author.setText("by " + item.author);
+			title.setText(item.title);
+			String dateText = item.pubDate;
+			if(dateText != null && dateText.length() > 6) {
+				date.setText(dateText.substring(0,(dateText.length()-6)));
+			} else {
+				date.setText("");
+			}
 		}
-		new DownloadBitmapTask(mImage).execute(mItems.get(position).imageUrl);
+		
+		if(item.author.equals("adviser")) {
+			author.setText("");
+		}
+		
+		if(item.imageUrl != null) {
+			//Log.d("imageUrl for " + item.title + " is", item.imageUrl);
+			new DownloadBitmapTask(mImage).execute(item.imageUrl);
+		} else {
+			mImage.setImageResource(R.drawable.ic_action_refresh);
+		}
 		return v;
 	}
 
@@ -109,7 +127,7 @@ public class ItemListAdapter extends BaseAdapter {
 		public DownloadBitmapTask(ImageView i) {
 			mImageView = i;
 		}
-		
+
 		@Override
 		protected void onPreExecute() {
 			mImageView.setImageResource(R.drawable.ic_action_refresh);

@@ -5,16 +5,13 @@ package edu.nyit.pocketslateUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.util.Log;
-
-import edu.nyit.pocketslate.Organization;
+import edu.nyit.pocketslate.Item;
 import edu.nyit.pocketslateUtils.PocketSlateReaderContract.ItemEntry;
 import static edu.nyit.pocketslate.Constants.*;
 
@@ -26,7 +23,7 @@ import static edu.nyit.pocketslate.Constants.*;
  */
 public class OrganizationsXmlParser {
 	private PocketSlateDbHelper mDbHelper;
-	private Organization mOrg;
+	private Item mOrg;
 	private String mText;
 
 	/**
@@ -44,7 +41,6 @@ public class OrganizationsXmlParser {
 	public void parse(InputStream in) {
 		XmlPullParserFactory factory = null;
 		XmlPullParser parser = null;
-		String acronym = null;
 		String title = null;
 		String imageUrl = null;
 		String description = null;
@@ -65,10 +61,9 @@ public class OrganizationsXmlParser {
 					break;
 				case XmlPullParser.END_TAG:
 					if(tagName.equalsIgnoreCase("org")) {
-						mOrg = new Organization(null, title, null, null, description, "Clubs and Organizations", imageUrl, null, acronym, null, null);
+						mOrg = new Item(null, title, null, null, description, "Clubs and Organizations", imageUrl, null, null, null);
+						imageUrl = null;
 						mDbHelper.addItem(mOrg, ItemEntry.TABLE_NAMES[CLUBS_AND_ORGANIZATIONS]);
-					} else if(tagName.equalsIgnoreCase("sname")) {
-						acronym = mText;
 					} else if(tagName.equalsIgnoreCase("lname")) {
 						title = mText;
 					} else if(tagName.equalsIgnoreCase("logo")) {

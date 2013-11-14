@@ -23,13 +23,12 @@ public interface Constants {
 	public static final int NEWS = 2;
 	public static final int FEATURES = 3;
 	public static final int STAFF = 4;
-	public static final int EVENTS = 5;
-	public static final int SPORTS = 6;
-	public static final int CLUBS_AND_ORGANIZATIONS = 7;
-	public static final int EDITORIALS = 8;
-	public static final int THATS_WHAT_SHE_SAID = 9;
-	public static final int BEARS_TO_WATCH = 10;
-	public static final int SEARCH = 11;
+	public static final int SPORTS = 5;
+	public static final int CLUBS_AND_ORGANIZATIONS = 6;
+	public static final int EDITORIALS = 7;
+	public static final int THATS_WHAT_SHE_SAID = 8;
+	public static final int BEARS_TO_WATCH = 9;
+	public static final int SEARCH = 10;
 
 	
 	// For ItemEntry.COLUMN_NAMES

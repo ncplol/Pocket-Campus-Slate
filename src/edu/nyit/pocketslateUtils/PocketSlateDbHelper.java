@@ -14,8 +14,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteQueryBuilder;
-import android.util.Log;
 
 /**
  * <p>Title: PocketSlateDbHelper.java</p>
@@ -24,7 +22,6 @@ import android.util.Log;
  *
  */ 
 public class PocketSlateDbHelper extends SQLiteOpenHelper {
-	private static Context context;
 	private static PocketSlateDbHelper sInstance = null;
 	public static final int DATABASE_VERSION = 1;
 	public static final String DATABASE_NAME = "PocketSlate.db";
@@ -61,7 +58,7 @@ public class PocketSlateDbHelper extends SQLiteOpenHelper {
 	 * @param context - Applications Context
 	 */
 	private PocketSlateDbHelper(Context c) {
-		super(context = c, DATABASE_NAME, null, DATABASE_VERSION);
+		super(c, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
 	@Override

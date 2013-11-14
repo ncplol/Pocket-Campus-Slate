@@ -38,7 +38,6 @@ public final class PocketSlateReaderContract {
 			"news", 
 			"features", 
 			"staff", 
-			"events", 
 			"sports",
 			"clubs_and_organizations",
 			"editorials", 

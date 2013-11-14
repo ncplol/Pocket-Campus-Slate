@@ -88,6 +88,7 @@ public class PocketSlateXmlParser {
 						}
 
 						mItem = new Item(null, title, link, description, content, category, imageUrl, pubDate, author, null);
+						imageUrl = null;
 						addItem(mItem);
 					} else if(tagName.equalsIgnoreCase("title")) {
 						title = mText;
@@ -132,8 +133,6 @@ public class PocketSlateXmlParser {
 			mDbHelper.addItem(item, ItemEntry.TABLE_NAMES[FEATURES]);
 		} else if(item.category.equals("Editorials")) {
 			mDbHelper.addItem(item, ItemEntry.TABLE_NAMES[EDITORIALS]);
-		} else if(item.category.equals("Events")) {
-			mDbHelper.addItem(item, ItemEntry.TABLE_NAMES[EVENTS]);
 		} else if(item.category.equals("Sports")) {
 			mDbHelper.addItem(item, ItemEntry.TABLE_NAMES[SPORTS]);
 		} else if(item.category.equals("Bears to Watch")) {

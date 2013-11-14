@@ -37,16 +37,13 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.util.LruCache;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -90,7 +87,9 @@ public class MainActivity extends Activity {
 
 	private SearchView mSearchView;					// SearchView for searching applications database
 
-	//TODO How to populate listview in StaffActivity for articles written by staff member
+	//TODO How to populate listview in StaffActivity for articles written by staff member, new Adapter
+	
+	//TODO Layout for items with no image
 	
 	//TODO Downloading and storing bitmaps, loading symbol in place of image until downloaded
 
@@ -289,7 +288,6 @@ public class MainActivity extends Activity {
 		menuItems.add(new MenuSection("News", "news"));
 		menuItems.add(new MenuSection("Features", "features"));
 		menuItems.add(new MenuSection("Staff", "staff"));
-		menuItems.add(new MenuSection("Events", "events"));
 		menuItems.add(new MenuSection("Sports", "sports"));
 		menuItems.add(new MenuSection("Clubs and Organizations", "clubs_and_organizations"));
 		menuItems.add(new MenuSection("Editorials", "editorials"));
@@ -671,15 +669,30 @@ public class MainActivity extends Activity {
 		 * @throws IOException
 		 */
 		private InputStream downloadUrl(String urlString) throws IOException {
-			URL url = new URL(urlString);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setReadTimeout(5000 /* milliseconds */);
-			conn.setConnectTimeout(5000/*milliseconds*/);
-			conn.setRequestMethod("GET");
-			conn.setDoInput(true);
-			conn.connect();
-			InputStream stream = conn.getInputStream();
-			return stream;
+			
+			try {
+				URL url = new URL(urlString);
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				conn.setReadTimeout(5000 /* milliseconds */);
+				conn.setConnectTimeout(5000/*milliseconds*/);
+				conn.setRequestMethod("GET");
+				conn.setDoInput(true);
+				conn.connect();
+				InputStream stream = conn.getInputStream();
+				return stream;
+			} catch(IOException e) {
+				return getApplicationContext().getAssets().open("rss.xml");	
+			}
+			
+//			URL url = new URL(urlString);
+//			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//			conn.setReadTimeout(5000 /* milliseconds */);
+//			conn.setConnectTimeout(5000/*milliseconds*/);
+//			conn.setRequestMethod("GET");
+//			conn.setDoInput(true);
+//			conn.connect();
+//			InputStream stream = conn.getInputStream();
+//			return stream;
 		}
 
 		/**

@@ -232,6 +232,13 @@ public class ArticleActivity extends Activity {
 		protected Bitmap doInBackground(String... url) {
 
 			try {
+//				BitmapFactory.Options options = new BitmapFactory.Options();
+//				options.inJustDecodeBounds = true;
+//				
+//				Bitmap b = BitmapFactory.decodeStream(downloadUrl(url[0]), null, options);
+//				
+//				return b;
+				
 				return BitmapFactory.decodeStream(downloadUrl(url[0]));
 			} catch (IOException e) {
 				e.printStackTrace();

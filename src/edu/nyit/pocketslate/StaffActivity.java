@@ -11,10 +11,8 @@ import java.net.URL;
 import edu.nyit.pocketslateUtils.ItemListAdapter;
 import edu.nyit.pocketslateUtils.PocketSlateDbHelper;
 import edu.nyit.pocketslateUtils.PocketSlateReaderContract.ItemEntry;
-import static edu.nyit.pocketslate.Constants.*;
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -23,7 +21,6 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -89,13 +86,17 @@ public class StaffActivity extends Activity {
 
 		// The dash in pranavs is missing a space and won't split properly
 		mName = mStaffMember.title;
-		if(mName.contains("Pranav")) {
-			mName = "Pranav Krishnamurthy";
-		} else {
-			// Split name and position
-			int end= mName.indexOf(" Ð ");
-			mName = mName.substring(0, end);
-		}
+//		if(mName.contains("Pranav")) {
+//			mName = "Pranav Krishnamurthy";
+//		} else {
+//			// Split name and position
+//			int end= mName.indexOf(" Ð ");
+//			mName = mName.substring(0, end);
+//		}
+		// Split name and position
+		int end= mName.indexOf(" Ð ");
+		mName = mName.substring(0, end);
+		
 		mArticleHeaderText.setText("Articles written by " + mName);
 		
 		// If there is an image link start task to download bitmap

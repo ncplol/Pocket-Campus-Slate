@@ -6,12 +6,6 @@
     android:orientation="horizontal"
     android:padding="1dp" >
 
-    <!-- android:background="#3366cc" -->
-
-
-    <!-- android:background="@android:drawable/bottom_bar" -->
-
-
     <!-- Item left-sided thumbnail -->
 
     <ImageView
@@ -22,33 +16,37 @@
         android:contentDescription="@string/app_name"
         android:padding="1dp" />
 
-    <TextView
-        android:id="@+id/item_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/item_image"
-        android:textColor="#fff"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:typeface="sans" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/item_image" >
 
- <TextView
-        android:id="@+id/item_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/item_title"
-        android:layout_toRightOf="@id/item_image"
-        android:textColor="#fff"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:typeface="sans" />
 
-    <TextView
-        android:id="@+id/item_author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/item_date"
-        android:layout_toRightOf="@id/item_image"
-        android:textColor="#fff"
-        android:textSize="14sp"
-        android:textStyle="italic" />
+        <TextView
+            android:id="@+id/item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_title"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/item_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_date"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:textStyle="italic" />
+    </RelativeLayout>
 
 </RelativeLayout>

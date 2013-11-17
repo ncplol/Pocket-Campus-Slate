@@ -384,7 +384,7 @@ public class MainActivity extends Activity {
 		setTitle(finalTitle);
 		mItemListAdapter.update(mOpenTable);
 		mItemListAdapter.notifyDataSetChanged();
-
+		mItemList.setSelectionAfterHeaderView();
 		mDrawerLayout.closeDrawer(mDrawerList);
 	}
 

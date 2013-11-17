@@ -204,12 +204,39 @@ public class StaffActivity extends Activity {
 	 * @param h
 	 */
 	public void loadBitmap(ImageView imageView, String url, int w, int h) {
-		if (BitmapWorkerTask.cancelPotentialWork(url, imageView)) {
-			final BitmapWorkerTask task = new BitmapWorkerTask(imageView, url, h, w);
-			final AsyncDrawable asyncDrawable =
-					new AsyncDrawable(getResources(), BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_refresh), task);
-			imageView.setImageDrawable(asyncDrawable);
-			task.execute(url);
+
+		final Bitmap bitmap = BitmapWorkerTask.getBitmapFromMemCache(url);
+		if (bitmap != null) {
+			mImage.setImageBitmap(bitmap);
+		} else {
+			//	        mImage.setImageResource(R.drawable.ic_action_refresh);
+			//	        BitmapWorkerTask task = new BitmapWorkerTask(mImage, url, h, w);
+			//	        task.execute(url);
+
+			if (BitmapWorkerTask.cancelPotentialWork(url, imageView)) {
+				final BitmapWorkerTask task = new BitmapWorkerTask(imageView, url, h, w);
+				final AsyncDrawable asyncDrawable =
+						new AsyncDrawable(getResources(), BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_refresh), task);
+				imageView.setImageDrawable(asyncDrawable);
+				task.execute(url);
+			}
 		}
 	}
+
+	//	/**
+	//	 * 
+	//	 * @param imageView
+	//	 * @param url
+	//	 * @param w
+	//	 * @param h
+	//	 */
+	//	public void loadBitmap(ImageView imageView, String url, int w, int h) {
+	//		if (BitmapWorkerTask.cancelPotentialWork(url, imageView)) {
+	//			final BitmapWorkerTask task = new BitmapWorkerTask(imageView, url, h, w);
+	//			final AsyncDrawable asyncDrawable =
+	//					new AsyncDrawable(getResources(), BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_refresh), task);
+	//			imageView.setImageDrawable(asyncDrawable);
+	//			task.execute(url);
+	//		}
+	//	}
 }

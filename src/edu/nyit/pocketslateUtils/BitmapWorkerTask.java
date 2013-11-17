@@ -15,6 +15,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.util.LruCache;
 import android.widget.ImageView;
 
 /**
@@ -27,6 +28,16 @@ public class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
 	private int width = 0;
 	private int height = 0;
 	public String mUrl = new String();
+	private final static int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+	private final static int cacheSize = maxMemory / 8;
+	private static LruCache<String, Bitmap> mMemoryCache = new LruCache<String, Bitmap>(cacheSize){
+		@Override
+		protected int sizeOf(String key, Bitmap bitmap) {
+			// The cache size will be measured in kilobytes rather than
+			// number of items.
+			return bitmap.getByteCount() / 1024;
+		}
+	};
 
 	public BitmapWorkerTask(ImageView imageView, String u, int reqWidth, int reqHeight) {
 		// Use a WeakReference to ensure the ImageView can be garbage collected
@@ -34,13 +45,17 @@ public class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
 		mUrl = u;
 		width = reqWidth;
 		height = reqHeight;
+
 	}
 
 	// Decode image in background.
 	@Override
 	protected Bitmap doInBackground(String... url) {
 
-		return decodeBitmapFromNetwork(url[0], width, height);
+		final Bitmap bitmap = decodeBitmapFromNetwork(url[0], width, height);
+		addBitmapToMemoryCache(String.valueOf(url[0]), bitmap);
+		return bitmap;
+
 	}
 
 	// Once complete, see if ImageView is still around and set bitmap.
@@ -60,6 +75,16 @@ public class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
 			}
 
 		}
+	}
+
+	public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
+		if (getBitmapFromMemCache(key) == null) {
+			mMemoryCache.put(key, bitmap);
+		}
+	}
+
+	public static Bitmap getBitmapFromMemCache(String key) {
+		return mMemoryCache.get(key);
 	}
 
 	/**

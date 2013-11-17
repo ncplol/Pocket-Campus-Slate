@@ -5,11 +5,13 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.nyit.pocketslateUtils.BitmapWorkerTask;
 import edu.nyit.pocketslateUtils.PocketSlateDbHelper;
 import edu.nyit.pocketslateUtils.PocketSlateReaderContract.ItemEntry;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
@@ -25,6 +27,7 @@ public class OrganizationActivity extends Activity {
 	private int mPosition;
 	private Item mOrganization;
 	private PocketSlateDbHelper mPocketDbHelper;
+	private Point mLogoRes;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,9 @@ public class OrganizationActivity extends Activity {
 		setContentView(R.layout.activity_organization);
 
 		getActionBar().setHomeButtonEnabled(true);
+		
+		Point resolution = new Point();
+		getWindowManager().getDefaultDisplay().getSize(resolution);
 
 		mTitle = (TextView)findViewById(R.id.organization_title);
 		mLogo = (ImageView)findViewById(R.id.organization_logo);
@@ -49,7 +55,8 @@ public class OrganizationActivity extends Activity {
 		mDescription.setText(spanned);
 
 		if(mOrganization.imageUrl != null) {
-			new DownloadBitmapTask().execute(mOrganization.imageUrl);
+			BitmapWorkerTask task = new BitmapWorkerTask(mLogo, 200, 200);
+			task.execute(mOrganization.imageUrl);
 		} else {
 			mLogo.setImageResource(R.drawable.splash_horizontal);
 		}
@@ -89,45 +96,4 @@ public class OrganizationActivity extends Activity {
 	protected void onSaveInstanceState(Bundle savedInstanceState) {
 		super.onSaveInstanceState(savedInstanceState);
 	}
-
-	class DownloadBitmapTask extends AsyncTask<String, Void, Bitmap> {
-
-		@Override
-		protected void onPreExecute() {
-			mLogo.setImageResource(R.drawable.ic_action_refresh);
-		}
-
-		@Override
-		protected Bitmap doInBackground(String... url) {
-
-			try {
-				return BitmapFactory.decodeStream(downloadUrl(url[0]));
-			} catch (IOException e) {
-				e.printStackTrace();
-				return null;
-			}
-
-		}
-
-		@Override
-		protected void onPostExecute(Bitmap result) {
-			if(result != null) {
-				mLogo.setImageBitmap(result);
-			}
-		}
-
-		private InputStream downloadUrl(String urlString) throws IOException {
-			URL url = new URL(urlString);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setReadTimeout(5000 /* milliseconds */);
-			conn.setConnectTimeout(5000/*milliseconds*/);
-			conn.setRequestMethod("GET");
-			conn.setDoInput(true);
-			conn.connect();
-			InputStream stream = conn.getInputStream();
-			return stream;
-		}
-
-	}
-
 }

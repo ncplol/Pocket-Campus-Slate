@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Locale;
 
+import edu.nyit.pocketslateUtils.BitmapWorkerTask;
 import edu.nyit.pocketslateUtils.ItemListAdapter;
 import edu.nyit.pocketslateUtils.PocketSlateDbHelper;
 import edu.nyit.pocketslateUtils.PocketSlateReaderContract.ItemEntry;
@@ -77,9 +78,9 @@ public class StaffActivity extends Activity {
 
 		Spanned spanned = Html.fromHtml(mStaffMember.content);
 		mBio.setText(spanned);
-		
+
 		mName = mStaffMember.title;
-		
+
 		// Split name and position
 		int end= mName.indexOf(" Ð ");
 		mName = mName.substring(0, end);
@@ -95,10 +96,11 @@ public class StaffActivity extends Activity {
 		mArticleList.setAdapter(mArticleAdapter);
 
 		mArticleHeaderText.setText("Articles written by " + mName);
-		
+
 		// If there is an image link start task to download bitmap
 		if(mStaffMember.imageUrl != null) {
-			new DownloadBitmapTask().execute(mStaffMember.imageUrl);
+			BitmapWorkerTask task = new BitmapWorkerTask(mImage, 200, 200);
+			task.execute(mStaffMember.imageUrl);
 		} else {
 			mImage.setImageResource(R.drawable.splash_horizontal);
 		}
@@ -158,7 +160,7 @@ public class StaffActivity extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	/**
 	 * Gets article from database based on user selection.  Packages items fields into a bundle.
 	 * Creates an Intent and puts the Bundle in it.  Starts ItemActivity
@@ -175,68 +177,19 @@ public class StaffActivity extends Activity {
 		itemActivityIntent.putExtra("article", bundle);
 		startActivity(itemActivityIntent);
 	}
-	
-	
-	//TODO Write click listener for article list
-		private class ArticleClickListener implements ListView.OnItemClickListener {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View views, int position,
-					long id) {
-				selectArticle(position);
-			}
-			
-		}
 
 	/**
 	 * 
 	 * @author jasonscott
 	 *
 	 */
-	private class DownloadBitmapTask extends AsyncTask<String, Void, Bitmap> {
+	private class ArticleClickListener implements ListView.OnItemClickListener {
 
 		@Override
-		protected void onPreExecute() {
-			mImage.setImageResource(R.drawable.ic_action_refresh);
-		}
-
-		@Override
-		protected Bitmap doInBackground(String... url) {
-
-			try {
-				return BitmapFactory.decodeStream(downloadUrl(url[0]));
-			} catch (IOException e) {
-				e.printStackTrace();
-				return null;
-			}
-
-		}
-
-		@Override
-		protected void onPostExecute(Bitmap result) {
-			if(result != null) {
-				mImage.setImageBitmap(result);
-			}
-		}
-
-		/**
-		 * Makes a connection to a given URL and returns InputStream
-		 * @param urlString
-		 * @return
-		 * @throws IOException
-		 */
-		private InputStream downloadUrl(String urlString) throws IOException {
-			URL url = new URL(urlString);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setReadTimeout(5000 /* milliseconds */);
-			conn.setConnectTimeout(5000/*milliseconds*/);
-			conn.setRequestMethod("GET");
-			conn.setDoInput(true);
-			conn.connect();
-			InputStream stream = conn.getInputStream();
-			return stream;
+		public void onItemClick(AdapterView<?> parent, View views, int position,
+				long id) {
+			selectArticle(position);
 		}
 
 	}
-	
 }

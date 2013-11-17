@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
+import edu.nyit.pocketslateUtils.BitmapWorkerTask;
 import edu.nyit.pocketslateUtils.PocketSlateDbHelper;
 import edu.nyit.pocketslateUtils.PocketSlateReaderContract.ItemEntry;
 import static edu.nyit.pocketslate.Constants.*;
@@ -97,7 +98,8 @@ public class ArticleActivity extends Activity {
 		mContent.setText(spanned);
 		
 		if(mArticle.imageUrl != null) {
-			new DownloadBitmapTask().execute(mArticle.imageUrl);
+			BitmapWorkerTask task = new BitmapWorkerTask(mImage, 250, 250);
+			task.execute(mArticle.imageUrl);
 		} else {
 			mImage.setImageResource(R.drawable.splash_horizontal);
 		}
@@ -223,52 +225,5 @@ public class ArticleActivity extends Activity {
 			Toast.makeText(this, "Failed to remove!", Toast.LENGTH_SHORT).show();
 		}
 		return super.onOptionsItemSelected(item);
-	}
-	
-	private class DownloadBitmapTask extends AsyncTask<String, Void, Bitmap> {
-
-		@Override
-		protected void onPreExecute() {
-			mImage.setImageResource(R.drawable.ic_action_refresh);
-		}
-
-		@Override
-		protected Bitmap doInBackground(String... url) {
-
-			try {
-//				BitmapFactory.Options options = new BitmapFactory.Options();
-//				options.inJustDecodeBounds = true;
-//				
-//				Bitmap b = BitmapFactory.decodeStream(downloadUrl(url[0]), null, options);
-//				
-//				return b;
-				
-				return BitmapFactory.decodeStream(downloadUrl(url[0]));
-			} catch (IOException e) {
-				e.printStackTrace();
-				return null;
-			}
-
-		}
-
-		@Override
-		protected void onPostExecute(Bitmap result) {
-			if(result != null) {
-				mImage.setImageBitmap(result);
-			}
-		}
-
-		private InputStream downloadUrl(String urlString) throws IOException {
-			URL url = new URL(urlString);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setReadTimeout(5000 /* milliseconds */);
-			conn.setConnectTimeout(5000/*milliseconds*/);
-			conn.setRequestMethod("GET");
-			conn.setDoInput(true);
-			conn.connect();
-			InputStream stream = conn.getInputStream();
-			return stream;
-		}
-
 	}
 }

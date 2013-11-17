@@ -67,6 +67,11 @@ public class PocketSlateDbHelper extends SQLiteOpenHelper {
 			db.execSQL(SQL_DELETE_ENTRIES + tableName);
 			db.execSQL("CREATE TABLE " + tableName + SQL_CREATE_ENTRIES);
 		}	
+		
+		for(String tableName : ItemEntry.STAFF_TABLE_NAMES) {
+			db.execSQL(SQL_DELETE_ENTRIES + tableName);
+			db.execSQL("CREATE TABLE " + tableName + SQL_CREATE_ENTRIES);
+		}
 	}
 
 	@Override

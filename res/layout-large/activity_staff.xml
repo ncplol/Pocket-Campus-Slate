@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3366cc"
+    android:background="#3366CC"
     android:orientation="vertical" >
 
     <!-- Staff member's name -->
@@ -22,7 +22,8 @@
         android:layout_width="256dp"
         android:layout_height="321dp"
         android:layout_below="@id/staff_title"
-        android:padding="20dp" />
+        android:padding="20dp" 
+        android:contentDescription="@string/app_name"/>
 
     <!-- Staff member's bio -->
 

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Locale;
 
 import edu.nyit.pocketslateUtils.ItemListAdapter;
 import edu.nyit.pocketslateUtils.PocketSlateDbHelper;
@@ -50,6 +51,7 @@ public class StaffActivity extends Activity {
 	private View mArticleHeader;						
 	private TextView mArticleHeaderText;				
 	private String mName;
+	private String mTable;
 
 	// Callback methods
 	@Override
@@ -75,21 +77,23 @@ public class StaffActivity extends Activity {
 
 		Spanned spanned = Html.fromHtml(mStaffMember.content);
 		mBio.setText(spanned);
+		
+		mName = mStaffMember.title;
+		
+		// Split name and position
+		int end= mName.indexOf(" Ð ");
+		mName = mName.substring(0, end);
+		mTable = mName.toLowerCase(Locale.US).replace(" ", "_");
 
-		mArticleAdapter = new ItemListAdapter(this, mPocketDbHelper, "search");
+		mArticleAdapter = new ItemListAdapter(this, mPocketDbHelper, mTable);
 
 		mArticleHeader = getLayoutInflater().inflate(R.layout.item_list_header, null, true);
 		mArticleList.addHeaderView(mArticleHeader, null, false);
 		mArticleHeaderText = (TextView)findViewById(R.id.item_header);
 
+		mArticleList.setOnItemClickListener(new ArticleClickListener());
 		mArticleList.setAdapter(mArticleAdapter);
 
-		mName = mStaffMember.title;
-
-		// Split name and position
-		int end= mName.indexOf(" Ð ");
-		mName = mName.substring(0, end);
-		
 		mArticleHeaderText.setText("Articles written by " + mName);
 		
 		// If there is an image link start task to download bitmap
@@ -154,6 +158,35 @@ public class StaffActivity extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	/**
+	 * Gets article from database based on user selection.  Packages items fields into a bundle.
+	 * Creates an Intent and puts the Bundle in it.  Starts ItemActivity
+	 * @param position - position of user selection
+	 */
+	private void selectArticle(int position) {
+		Item item = mPocketDbHelper.getItem(mTable, ItemEntry._ID, "" + position);
+
+		Bundle bundle = new Bundle();
+		bundle.putString("pub_date", item.pubDate);
+		bundle.putString("table", mTable);
+
+		Intent itemActivityIntent = new Intent(this, ArticleActivity.class);
+		itemActivityIntent.putExtra("article", bundle);
+		startActivity(itemActivityIntent);
+	}
+	
+	
+	//TODO Write click listener for article list
+		private class ArticleClickListener implements ListView.OnItemClickListener {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View views, int position,
+					long id) {
+				selectArticle(position);
+			}
+			
+		}
 
 	/**
 	 * 
@@ -206,14 +239,4 @@ public class StaffActivity extends Activity {
 
 	}
 	
-	//TODO Write click listener for article list
-	private class ArticleClickListener implements ListView.OnItemClickListener {
-
-		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-				long arg3) {
-			
-		}
-		
-	}
 }

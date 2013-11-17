@@ -6,9 +6,6 @@
     android:orientation="horizontal"
     android:padding="1dp" >
 
-    <!-- android:background="@android:drawable/bottom_bar" -->
-
-
     <!-- Item left-sided thumbnail -->
 
     <ImageView

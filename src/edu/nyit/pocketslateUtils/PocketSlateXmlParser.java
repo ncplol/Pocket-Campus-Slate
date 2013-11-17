@@ -32,6 +32,7 @@ public class PocketSlateXmlParser {
 	private Item mItem;
 	private String mText;
 	private Date mLastBuild;
+	private long timeStart;
 
 	/**
 	 * Constructs parser.
@@ -46,6 +47,7 @@ public class PocketSlateXmlParser {
 	 * @param in - InputStream, from MainActivity's DownloadContentTask's downloadUrl method.
 	 */
 	public void parse(InputStream in) {
+		timeStart = System.currentTimeMillis();
 		XmlPullParserFactory factory = null;
 		XmlPullParser parser = null;
 		String title = null;
@@ -73,14 +75,14 @@ public class PocketSlateXmlParser {
 					break;
 				case XmlPullParser.END_TAG:
 					if(tagName.equalsIgnoreCase("item")) {
-						
+
 						// Check for image URL within content.
 						if(content.contains("img src")) {
 							int start = content.indexOf("img src=") + 9;
 							int end = content.indexOf("\"", start);		// Index of " implying end of the link
 							imageUrl = content.substring(start, end);
 						}
-						
+
 						// Separate the div with image link from the content
 						if(content.contains("<p>")) {
 							int contentStart = content.indexOf("<p>");
@@ -142,6 +144,14 @@ public class PocketSlateXmlParser {
 		} else if(item.category.equals("Staff")) {
 			mDbHelper.addItem(item, ItemEntry.TABLE_NAMES[STAFF]);
 		}
+		String author = item.author.toLowerCase(Locale.US);
+		for(String staffMember : ItemEntry.STAFF_TABLE_NAMES) {
+			String n = staffMember.replace("_", " ");
+			if(author.contains(n)) {
+				mDbHelper.addItem(item, staffMember);
+			}
+		}
+		System.out.println("Elapsed time from start is " + new Date(System.currentTimeMillis() - timeStart).toString());
 	}
 
 	/**

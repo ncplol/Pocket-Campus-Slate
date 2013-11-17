@@ -94,6 +94,7 @@ public class ItemListAdapter extends BaseAdapter {
 		if(mTableName.equals("staff")) {
 			String[] strs = item.title.split("Ð");
 			title.setText(strs[0]);
+			author.setText("");
 			if(strs.length > 1) { 
 				date.setText(strs[1]); 
 			}
@@ -117,6 +118,7 @@ public class ItemListAdapter extends BaseAdapter {
 			new DownloadBitmapTask(mImage).execute(item.imageUrl);
 		} else {
 			mImage.setImageResource(R.drawable.splash_horizontal);
+			//TODO test this at beginning of getView and change layout to item without imageview
 		}
 		return v;
 	}

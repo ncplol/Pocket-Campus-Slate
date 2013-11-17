@@ -88,9 +88,9 @@ public class MainActivity extends Activity {
 	private SearchView mSearchView;					// SearchView for searching applications database
 
 	//TODO How to populate listview in StaffActivity for articles written by staff member, new Adapter
-	
+
 	//TODO Layout for items with no image
-	
+
 	//TODO Downloading and storing bitmaps, loading symbol in place of image until downloaded
 
 	//TODO Memory and Disk Cache for bitmaps
@@ -321,7 +321,7 @@ public class MainActivity extends Activity {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long arg3) {
+				long id) {
 			if(mOpenTable.equals("staff")) {
 				selectStaff(position);
 			} else if(mOpenTable.equals("clubs_and_organizations")) {
@@ -414,6 +414,10 @@ public class MainActivity extends Activity {
 	private void selectStaff(int position) {
 		//TODO Create new search task to find all articles from all tables written by selected staff member. Cannot use current SearchDbTask
 		
+//		Item item = mPocketDbHelper.getItem("staff", ItemEntry._ID, "" + position);
+//		String title = item.title;
+//		new StaffArticlesTask(title, position).execute();
+		
 		Bundle bundle = new Bundle();
 		bundle.putInt("position", position);
 
@@ -431,6 +435,16 @@ public class MainActivity extends Activity {
 		orgActivityIntent.putExtra("organization", bundle);
 		startActivity(orgActivityIntent);
 	}
+	
+	private void startStaffActivity(String table, int position) {
+		Bundle bundle = new Bundle();
+		bundle.putInt("position", position);
+		bundle.putString("table", table);
+
+		Intent staffActivityIntent = new Intent(this, StaffActivity.class);
+		staffActivityIntent.putExtra("staff", bundle);
+		startActivity(staffActivityIntent);
+	}
 
 	/**
 	 * Instantiates the AsyncTask and calls execute.
@@ -443,7 +457,7 @@ public class MainActivity extends Activity {
 	 *  Instantiates a mProgressDialog to show user the application is performing a task.
 	 * @param text - String of message to user to be displayed in the dialog
 	 */
-	private void createProgressDialog(String text) {
+	public void createProgressDialog(String text) {
 		//Create a new progress dialog  
 		mProgressDialog = new ProgressDialog(MainActivity.this, ProgressDialog.THEME_HOLO_DARK);  
 		//Set the progress dialog to display a spinner progress bar  
@@ -458,6 +472,26 @@ public class MainActivity extends Activity {
 		mProgressDialog.setIndeterminate(false);  
 		//Display the progress dialog  
 		mProgressDialog.show();
+	}
+
+	/**
+	 * Checks that there are entries in table of the database.
+	 * @return
+	 */
+	private boolean tableExists(String table) {
+		Cursor cursor = mPocketDbHelper.getReadableDatabase()
+				.rawQuery("SELECT * FROM " + table,
+						null);
+
+		if(cursor != null) {
+			if(cursor.getCount() > 0) {
+				cursor.close();
+				return true;
+			} else {
+				cursor.close();
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -481,7 +515,6 @@ public class MainActivity extends Activity {
 			alert.setButton(DialogInterface.BUTTON_POSITIVE, "Retry", new DialogInterface.OnClickListener() {
 				@Override 
 				public void onClick(DialogInterface dialog, int which) {
-					//TODO Detect error downloading.  If not complete delete all tables.
 					loadPage();
 				}
 			});
@@ -600,7 +633,7 @@ public class MainActivity extends Activity {
 			}
 
 			// Check that there is a database to allow for offline viewing.
-			if(databaseExists()) {
+			if(tableExists(mOpenTable)) {
 				selectMenuItem(mOpenTable);
 			}
 		}
@@ -629,7 +662,7 @@ public class MainActivity extends Activity {
 				}
 
 				// If content needs to be updated, delete all tables for updated tables
-				if(databaseExists()) {
+				if(tableExists(mOpenTable)) {
 					for(String table : ItemEntry.TABLE_NAMES) {
 						mPocketDbHelper.deleteTable(table);
 					}
@@ -669,21 +702,21 @@ public class MainActivity extends Activity {
 		 * @throws IOException
 		 */
 		private InputStream downloadUrl(String urlString) throws IOException {
-			
-//			try {
-//				URL url = new URL(urlString);
-//				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//				conn.setReadTimeout(5000 /* milliseconds */);
-//				conn.setConnectTimeout(5000/*milliseconds*/);
-//				conn.setRequestMethod("GET");
-//				conn.setDoInput(true);
-//				conn.connect();
-//				InputStream stream = conn.getInputStream();
-//				return stream;
-//			} catch(IOException e) {
-//				return getApplicationContext().getAssets().open("rss.xml");	
-//			}
-			
+
+			//			try {
+			//				URL url = new URL(urlString);
+			//				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			//				conn.setReadTimeout(5000 /* milliseconds */);
+			//				conn.setConnectTimeout(5000/*milliseconds*/);
+			//				conn.setRequestMethod("GET");
+			//				conn.setDoInput(true);
+			//				conn.connect();
+			//				InputStream stream = conn.getInputStream();
+			//				return stream;
+			//			} catch(IOException e) {
+			//				return getApplicationContext().getAssets().open("rss.xml");	
+			//			}
+
 			URL url = new URL(urlString);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setReadTimeout(15000 /* milliseconds */);
@@ -693,26 +726,6 @@ public class MainActivity extends Activity {
 			conn.connect();
 			InputStream stream = conn.getInputStream();
 			return stream;
-		}
-
-		/**
-		 * Checks that there are entries in the database.
-		 * @return
-		 */
-		private boolean databaseExists() {
-			Cursor cursor = mPocketDbHelper.getReadableDatabase()
-					.rawQuery("SELECT * FROM " + mOpenTable,
-							null);
-
-			if(cursor != null) {
-				if(cursor.getCount() > 0) {
-					cursor.close();
-					return true;
-				} else {
-					cursor.close();
-				}
-			}
-			return false;
 		}
 	}
 

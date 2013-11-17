@@ -45,5 +45,24 @@ public final class PocketSlateReaderContract {
 			"bears_to_watch",
 		"search"};
 		
+		// Staff table names
+		public static final String[] STAFF_TABLE_NAMES = {
+			"john_hanc",
+			"erica_brandt",
+			"anthony_mcmahon",
+			"lauren_sharkey",
+			"miasha_lee",
+			"matt_santamaria",
+			"meredith_gerdes",
+			"mike_cerullo",
+			"alex_gournaris",
+			"kulsum_mirza",
+			"kristin_metzler",
+			"rachel_udkow",
+			"jaheel_felix",
+			"sana_hassan",
+			"pranav_krishnamurthy"
+		};
+		
 	}
 }

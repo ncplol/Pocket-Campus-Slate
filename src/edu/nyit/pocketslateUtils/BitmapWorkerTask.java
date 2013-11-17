@@ -29,7 +29,7 @@ public class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
 	private int height = 0;
 	public String mUrl = new String();
 	private final static int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
-	private final static int cacheSize = maxMemory / 8;
+	private final static int cacheSize = maxMemory / 4;
 	private static LruCache<String, Bitmap> mMemoryCache = new LruCache<String, Bitmap>(cacheSize){
 		@Override
 		protected int sizeOf(String key, Bitmap bitmap) {

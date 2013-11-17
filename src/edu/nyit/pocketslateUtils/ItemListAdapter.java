@@ -115,7 +115,7 @@ public class ItemListAdapter extends BaseAdapter {
 			}
 		}
 
-		if(item.imageUrl != null) {
+		if(item.imageUrl != null && item.imageUrl.length() > 3) {
 			//			BitmapWorkerTask task = new BitmapWorkerTask(mImage, 100, 100);
 			//			task.execute(item.imageUrl);
 			loadBitmap(mImage, item.imageUrl, 250, 250);

@@ -55,7 +55,7 @@ public final class PocketSlateReaderContract {
 			"matt_santamaria",
 			"meredith_gerdes",
 			"mike_cerullo",
-			"alexandros_gournaris",
+			"alexandros_gounaris",
 			"kulsum_mirza",
 			"kristin_metzler",
 			"rachel_udkow",

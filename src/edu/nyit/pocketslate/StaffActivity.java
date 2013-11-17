@@ -12,11 +12,13 @@ import java.util.Locale;
 import edu.nyit.pocketslateUtils.BitmapWorkerTask;
 import edu.nyit.pocketslateUtils.ItemListAdapter;
 import edu.nyit.pocketslateUtils.PocketSlateDbHelper;
+import edu.nyit.pocketslateUtils.BitmapWorkerTask.AsyncDrawable;
 import edu.nyit.pocketslateUtils.PocketSlateReaderContract.ItemEntry;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -99,8 +101,9 @@ public class StaffActivity extends Activity {
 
 		// If there is an image link start task to download bitmap
 		if(mStaffMember.imageUrl != null) {
-			BitmapWorkerTask task = new BitmapWorkerTask(mImage, 200, 200);
-			task.execute(mStaffMember.imageUrl);
+			//			BitmapWorkerTask task = new BitmapWorkerTask(mImage, mStaffMember.imageUrl, 200, 200);
+			//			task.execute(mStaffMember.imageUrl);
+			loadBitmap(mImage, mStaffMember.imageUrl, 200, 200);
 		} else {
 			mImage.setImageResource(R.drawable.splash_horizontal);
 		}
@@ -191,5 +194,22 @@ public class StaffActivity extends Activity {
 			selectArticle(position);
 		}
 
+	}
+
+	/**
+	 * 
+	 * @param imageView
+	 * @param url
+	 * @param w
+	 * @param h
+	 */
+	public void loadBitmap(ImageView imageView, String url, int w, int h) {
+		if (BitmapWorkerTask.cancelPotentialWork(url, imageView)) {
+			final BitmapWorkerTask task = new BitmapWorkerTask(imageView, url, h, w);
+			final AsyncDrawable asyncDrawable =
+					new AsyncDrawable(getResources(), BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_refresh), task);
+			imageView.setImageDrawable(asyncDrawable);
+			task.execute(url);
+		}
 	}
 }

@@ -12,12 +12,14 @@ import java.util.Locale;
 
 import edu.nyit.pocketslateUtils.BitmapWorkerTask;
 import edu.nyit.pocketslateUtils.PocketSlateDbHelper;
+import edu.nyit.pocketslateUtils.BitmapWorkerTask.AsyncDrawable;
 import edu.nyit.pocketslateUtils.PocketSlateReaderContract.ItemEntry;
 import static edu.nyit.pocketslate.Constants.*;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -96,10 +98,11 @@ public class ArticleActivity extends Activity {
 
 		Spanned spanned = Html.fromHtml(mArticle.content);
 		mContent.setText(spanned);
-		
+
 		if(mArticle.imageUrl != null) {
-			BitmapWorkerTask task = new BitmapWorkerTask(mImage, 250, 250);
-			task.execute(mArticle.imageUrl);
+			//			BitmapWorkerTask task = new BitmapWorkerTask(mImage, mArticle.imageUrl, 250, 250);
+			//			task.execute(mArticle.imageUrl);
+			loadBitmap(mImage, mArticle.imageUrl, 250, 250);
 		} else {
 			mImage.setImageResource(R.drawable.splash_horizontal);
 		}
@@ -180,7 +183,7 @@ public class ArticleActivity extends Activity {
 		mSaveMenuItem.setIcon(resId);
 		mSaveMenuItem.setTitle(title);
 	}
-	
+
 	/**
 	 * Adds an article to saved stories table of database.  Updates the articles saved field.
 	 * @param item
@@ -225,5 +228,22 @@ public class ArticleActivity extends Activity {
 			Toast.makeText(this, "Failed to remove!", Toast.LENGTH_SHORT).show();
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	/**
+	 * 
+	 * @param imageView
+	 * @param url
+	 * @param w
+	 * @param h
+	 */
+	public void loadBitmap(ImageView imageView, String url, int w, int h) {
+		if (BitmapWorkerTask.cancelPotentialWork(url, imageView)) {
+			final BitmapWorkerTask task = new BitmapWorkerTask(imageView, url, h, w);
+			final AsyncDrawable asyncDrawable =
+					new AsyncDrawable(getResources(), BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_refresh), task);
+			imageView.setImageDrawable(asyncDrawable);
+			task.execute(url);
+		}
 	}
 }

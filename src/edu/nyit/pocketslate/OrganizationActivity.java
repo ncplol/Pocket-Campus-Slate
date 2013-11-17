@@ -7,11 +7,13 @@ import java.net.URL;
 
 import edu.nyit.pocketslateUtils.BitmapWorkerTask;
 import edu.nyit.pocketslateUtils.PocketSlateDbHelper;
+import edu.nyit.pocketslateUtils.BitmapWorkerTask.AsyncDrawable;
 import edu.nyit.pocketslateUtils.PocketSlateReaderContract.ItemEntry;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
@@ -35,7 +37,7 @@ public class OrganizationActivity extends Activity {
 		setContentView(R.layout.activity_organization);
 
 		getActionBar().setHomeButtonEnabled(true);
-		
+
 		Point resolution = new Point();
 		getWindowManager().getDefaultDisplay().getSize(resolution);
 
@@ -55,8 +57,9 @@ public class OrganizationActivity extends Activity {
 		mDescription.setText(spanned);
 
 		if(mOrganization.imageUrl != null) {
-			BitmapWorkerTask task = new BitmapWorkerTask(mLogo, 200, 200);
-			task.execute(mOrganization.imageUrl);
+			//			BitmapWorkerTask task = new BitmapWorkerTask(mLogo, mOrganization.imageUrl, 250, 250);
+			//			task.execute(mOrganization.imageUrl);
+			loadBitmap(mLogo, mOrganization.imageUrl, 250, 250);
 		} else {
 			mLogo.setImageResource(R.drawable.splash_horizontal);
 		}
@@ -96,4 +99,16 @@ public class OrganizationActivity extends Activity {
 	protected void onSaveInstanceState(Bundle savedInstanceState) {
 		super.onSaveInstanceState(savedInstanceState);
 	}
+
+	public void loadBitmap(ImageView imageView, String url, int w, int h) {
+		if (BitmapWorkerTask.cancelPotentialWork(url, imageView)) {
+			final BitmapWorkerTask task = new BitmapWorkerTask(imageView, url, h, w);
+			final AsyncDrawable asyncDrawable =
+					new AsyncDrawable(getResources(), BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_refresh), task);
+			imageView.setImageDrawable(asyncDrawable);
+			task.execute(url);
+		}
+	}
+
 }
+

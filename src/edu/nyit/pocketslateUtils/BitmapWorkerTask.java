@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2013 Jason Scott
+ */
 package edu.nyit.pocketslateUtils;
 
 import java.io.IOException;
@@ -9,17 +12,26 @@ import java.net.URL;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
+/**
+ * 
+ * @author jasonscott
+ *
+ */
 public class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
 	private final WeakReference<ImageView> imageViewReference;
 	private int width = 0;
 	private int height = 0;
+	public String mUrl = new String();
 
-	public BitmapWorkerTask(ImageView imageView, int reqWidth, int reqHeight) {
+	public BitmapWorkerTask(ImageView imageView, String u, int reqWidth, int reqHeight) {
 		// Use a WeakReference to ensure the ImageView can be garbage collected
 		imageViewReference = new WeakReference<ImageView>(imageView);
+		mUrl = u;
 		width = reqWidth;
 		height = reqHeight;
 	}
@@ -30,19 +42,73 @@ public class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
 
 		return decodeBitmapFromNetwork(url[0], width, height);
 	}
-	
-	// Once complete, see if ImageView is still around and set bitmap.
-    @Override
-    protected void onPostExecute(Bitmap bitmap) {
-        if (imageViewReference != null && bitmap != null) {
-            final ImageView imageView = imageViewReference.get();
-            if (imageView != null) {
-                imageView.setImageBitmap(bitmap);
-            }
-        }
-    }
 
-	
+	// Once complete, see if ImageView is still around and set bitmap.
+	@Override
+	protected void onPostExecute(Bitmap bitmap) {
+
+		if (isCancelled()) {
+			bitmap = null;
+		}
+
+		if (imageViewReference != null && bitmap != null) {
+			final ImageView imageView = imageViewReference.get();
+			final BitmapWorkerTask bitmapWorkerTask =
+					getBitmapWorkerTask(imageView);
+			if (this == bitmapWorkerTask && imageView != null) {
+				imageView.setImageBitmap(bitmap);
+			}
+
+		}
+	}
+
+	/**
+	 * 
+	 * @param url
+	 * @param imageView
+	 * @return
+	 */
+	public static boolean cancelPotentialWork(String url, ImageView imageView) {
+		final BitmapWorkerTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
+
+		if (bitmapWorkerTask != null) {
+			final String bitmapUrl = bitmapWorkerTask.mUrl;
+			if (!bitmapUrl.equals(url)) {
+				// Cancel previous task
+				bitmapWorkerTask.cancel(true);
+			} else {
+				// The same work is already in progress
+				return false;
+			}
+		}
+		// No task associated with the ImageView, or an existing task was cancelled
+		return true;
+	}
+
+	/**
+	 * 
+	 * @param imageView
+	 * @return
+	 */
+	private static BitmapWorkerTask getBitmapWorkerTask(ImageView imageView) {
+		if (imageView != null) {
+			final Drawable drawable = imageView.getDrawable();
+			if (drawable instanceof AsyncDrawable) {
+				final AsyncDrawable asyncDrawable = (AsyncDrawable) drawable;
+				return asyncDrawable.getBitmapWorkerTask();
+			}
+		}
+		return null;
+	}
+
+
+	/**
+	 * 
+	 * @param options
+	 * @param reqWidth
+	 * @param reqHeight
+	 * @return
+	 */
 	public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
 		final int height = options.outHeight;
 		final int width = options.outWidth;
@@ -64,6 +130,13 @@ public class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
 		return inSampleSize;
 	}
 
+	/**
+	 * 
+	 * @param url
+	 * @param reqWidth
+	 * @param reqHeight
+	 * @return
+	 */
 	public static Bitmap decodeBitmapFromNetwork(String url, int reqWidth, int reqHeight) {
 
 		try {
@@ -85,6 +158,14 @@ public class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
 		}
 	}
 
+	/**
+	 * 
+	 * @param res
+	 * @param resId
+	 * @param reqWidth
+	 * @param reqHeight
+	 * @return
+	 */
 	public static Bitmap decodeBitmapFromResource(Resources res, int resId,
 			int reqWidth, int reqHeight) {
 
@@ -117,6 +198,27 @@ public class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
 		conn.connect();
 		InputStream stream = conn.getInputStream();
 		return stream;
+	}
+
+
+	/**
+	 * 
+	 * @author jasonscott
+	 *
+	 */
+	public static class AsyncDrawable extends BitmapDrawable {
+		private final WeakReference<BitmapWorkerTask> bitmapWorkerTaskReference;
+
+		public AsyncDrawable(Resources res, Bitmap bitmap,
+				BitmapWorkerTask bitmapWorkerTask) {
+			super(res, bitmap);
+			bitmapWorkerTaskReference =
+					new WeakReference<BitmapWorkerTask>(bitmapWorkerTask);
+		}
+
+		public BitmapWorkerTask getBitmapWorkerTask() {
+			return bitmapWorkerTaskReference.get();
+		}
 	}
 
 }

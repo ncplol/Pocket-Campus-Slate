@@ -11,10 +11,12 @@ import java.util.List;
 
 import edu.nyit.pocketslate.Item;
 import edu.nyit.pocketslate.R;
+import edu.nyit.pocketslateUtils.BitmapWorkerTask.AsyncDrawable;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -114,11 +116,68 @@ public class ItemListAdapter extends BaseAdapter {
 		}
 
 		if(item.imageUrl != null) {
-			BitmapWorkerTask task = new BitmapWorkerTask(mImage, 100, 100);
-			task.execute(item.imageUrl);
+//			BitmapWorkerTask task = new BitmapWorkerTask(mImage, 100, 100);
+//			task.execute(item.imageUrl);
+			loadBitmap(mImage, item.imageUrl, 100, 100);
 		} else {
 			mImage.setImageResource(R.drawable.splash_horizontal);
 		}
 		return v;
 	}
+	
+	/**
+	 * 
+	 * @param imageView
+	 * @param url
+	 * @param w
+	 * @param h
+	 */
+	public void loadBitmap(ImageView imageView, String url, int w, int h) {
+	    if (BitmapWorkerTask.cancelPotentialWork(url, imageView)) {
+	        final BitmapWorkerTask task = new BitmapWorkerTask(imageView, url, h, w);
+	        final AsyncDrawable asyncDrawable =
+	                new AsyncDrawable(mActivity.getResources(), BitmapFactory.decodeResource(mActivity.getResources(), R.drawable.ic_action_refresh), task);
+	        imageView.setImageDrawable(asyncDrawable);
+	        task.execute(url);
+	    }
+	}
+
+//	/**
+//	 * 
+//	 * @param url
+//	 * @param imageView
+//	 * @return
+//	 */
+//	public static boolean cancelPotentialWork(String url, ImageView imageView) {
+//	    final BitmapWorkerTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
+//
+//	    if (bitmapWorkerTask != null) {
+//	        final String bitmapUrl = bitmapWorkerTask.mUrl;
+//	        if (!bitmapUrl.equals(url)) {
+//	            // Cancel previous task
+//	            bitmapWorkerTask.cancel(true);
+//	        } else {
+//	            // The same work is already in progress
+//	            return false;
+//	        }
+//	    }
+//	    // No task associated with the ImageView, or an existing task was cancelled
+//	    return true;
+//	}
+//	
+//	/**
+//	 * 
+//	 * @param imageView
+//	 * @return
+//	 */
+//	private static BitmapWorkerTask getBitmapWorkerTask(ImageView imageView) {
+//		   if (imageView != null) {
+//		       final Drawable drawable = imageView.getDrawable();
+//		       if (drawable instanceof AsyncDrawable) {
+//		           final AsyncDrawable asyncDrawable = (AsyncDrawable) drawable;
+//		           return asyncDrawable.getBitmapWorkerTask();
+//		       }
+//		    }
+//		    return null;
+//		}
 }

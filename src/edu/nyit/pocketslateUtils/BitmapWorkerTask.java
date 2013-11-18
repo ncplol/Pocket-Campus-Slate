@@ -79,7 +79,9 @@ public class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
 
 	public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
 		if (getBitmapFromMemCache(key) == null) {
-			mMemoryCache.put(key, bitmap);
+			if(key != null && bitmap !=null) {
+				mMemoryCache.put(key, bitmap);
+			}
 		}
 	}
 

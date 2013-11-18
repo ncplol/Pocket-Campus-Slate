@@ -311,6 +311,7 @@ public class MainActivity extends Activity {
 
 			DrawerMenuItem drawerItem = mDrawerListAdapter.getItem(position);
 			if(position < 12) {
+				mItemList.setSelectionAfterHeaderView();
 				selectMenuItem(drawerItem.getTable());
 			}
 		}
@@ -384,7 +385,6 @@ public class MainActivity extends Activity {
 		setTitle(finalTitle);
 		mItemListAdapter.update(mOpenTable);
 		mItemListAdapter.notifyDataSetChanged();
-		mItemList.setSelectionAfterHeaderView();
 		mDrawerLayout.closeDrawer(mDrawerList);
 	}
 

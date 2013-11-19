@@ -42,8 +42,10 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/jason_photo"
         android:layout_centerHorizontal="true"
+        android:autoLink="all"
         android:text="@string/about_feedback"
         android:textColor="#FFF"
+        android:textIsSelectable="true"
         android:textSize="16sp" />
 
     <ImageView
@@ -53,8 +55,8 @@
         android:layout_alignTop="@+id/nick_photo"
         android:layout_marginLeft="113dp"
         android:layout_toRightOf="@+id/about_company_text"
-        android:src="@drawable/jason_scott"
-        android:contentDescription="@string/jason_text" />
+        android:contentDescription="@string/jason_text"
+        android:src="@drawable/jason_scott" />
 
     <ImageView
         android:id="@+id/nick_photo"
@@ -63,8 +65,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="24dp"
         android:layout_toLeftOf="@+id/jason_photo"
-        android:src="@drawable/nick_corso_passaro" 
-        android:contentDescription="@string/nick_text"/>
+        android:contentDescription="@string/nick_text"
+        android:src="@drawable/nick_corso_passaro" />
 
     <TextView
         android:id="@+id/nick_name"

@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#000000"
-            android:scaleType="center" />
+            android:scaleType="center" 
+            android:contentDescription="@string/app_name"/>
 
         <!-- Articles title -->
 
@@ -64,7 +65,8 @@
             android:layout_below="@id/article_author"
             android:padding="10dp"
             android:textColor="#fff"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:autoLink="all" />
 
         <TextView
             android:id="@+id/article_title"

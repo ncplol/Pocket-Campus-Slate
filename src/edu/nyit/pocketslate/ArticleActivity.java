@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.util.Linkify;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -92,6 +93,7 @@ public class ArticleActivity extends Activity {
 
 		Spanned spanned = Html.fromHtml(mArticle.content);
 		mContent.setText(spanned);
+	//	mContent.setTextIsSelectable(true);
 
 		if(mArticle.imageUrl != null) {
 			//			BitmapWorkerTask task = new BitmapWorkerTask(mImage, mArticle.imageUrl, 250, 250);

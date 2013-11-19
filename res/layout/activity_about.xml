@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,8 +22,8 @@
         android:layout_height="150dp"
         android:layout_above="@+id/nick_name"
         android:layout_alignRight="@+id/about_app_text"
-        android:src="@drawable/jason_scott" 
-        android:contentDescription="@string/jason_text"/>
+        android:contentDescription="@string/jason_text"
+        android:src="@drawable/jason_scott" />
 
     <TextView
         android:id="@+id/nick_name"
@@ -92,8 +91,8 @@
         android:layout_alignLeft="@+id/about_app_text"
         android:layout_below="@+id/about_app_text"
         android:layout_marginTop="14dp"
-        android:src="@drawable/nick_corso_passaro" 
-        android:contentDescription="@string/jason_text"/>
+        android:contentDescription="@string/jason_text"
+        android:src="@drawable/nick_corso_passaro" />
 
     <TextView
         android:id="@+id/about_feedback_text"
@@ -102,8 +101,10 @@
         android:layout_below="@+id/nick_name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:autoLink="all"
         android:text="@string/about_feedback"
         android:textColor="#FFF"
+        android:textIsSelectable="true"
         android:textSize="12sp" />
 
 </RelativeLayout>

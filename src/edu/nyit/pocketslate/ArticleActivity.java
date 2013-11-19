@@ -3,10 +3,6 @@
  */
 package edu.nyit.pocketslate;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,9 +15,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.Html;
@@ -104,7 +98,7 @@ public class ArticleActivity extends Activity {
 			//			task.execute(mArticle.imageUrl);
 			loadBitmap(mImage, mArticle.imageUrl, 250, 250);
 		} else {
-			mImage.setImageResource(R.drawable.splash_horizontal);
+			mImage.setImageResource(R.drawable.nyit_splash_horizontal);
 		}
 
 	}

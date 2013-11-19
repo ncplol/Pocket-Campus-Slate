@@ -46,7 +46,8 @@
         android:layout_alignLeft="@+id/about_app_text"
         android:layout_below="@+id/about_app_text"
         android:layout_marginTop="41dp"
-        android:src="@drawable/nick_corso_passaro" />
+        android:src="@drawable/nick_corso_passaro" 
+        android:contentDescription="@string/nick_text"/>
 
     <TextView
         android:id="@+id/nick_name"
@@ -101,6 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/nick_name"
         android:layout_alignRight="@+id/about_app_text"
-        android:src="@drawable/jason_scott" />
+        android:src="@drawable/jason_scott" 
+        android:contentDescription="@string/jason_text"/>
 
 </RelativeLayout>

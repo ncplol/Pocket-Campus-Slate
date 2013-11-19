@@ -53,7 +53,8 @@
         android:layout_alignTop="@+id/nick_photo"
         android:layout_marginLeft="113dp"
         android:layout_toRightOf="@+id/about_company_text"
-        android:src="@drawable/jason_scott" />
+        android:src="@drawable/jason_scott"
+        android:contentDescription="@string/jason_text" />
 
     <ImageView
         android:id="@+id/nick_photo"
@@ -62,7 +63,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="24dp"
         android:layout_toLeftOf="@+id/jason_photo"
-        android:src="@drawable/nick_corso_passaro" />
+        android:src="@drawable/nick_corso_passaro" 
+        android:contentDescription="@string/nick_text"/>
 
     <TextView
         android:id="@+id/nick_name"

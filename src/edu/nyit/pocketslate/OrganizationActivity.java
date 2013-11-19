@@ -1,9 +1,5 @@
 package edu.nyit.pocketslate;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import edu.nyit.pocketslateUtils.BitmapWorkerTask;
 import edu.nyit.pocketslateUtils.PocketSlateDbHelper;
@@ -12,9 +8,6 @@ import edu.nyit.pocketslateUtils.PocketSlateReaderContract.ItemEntry;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Point;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -29,7 +22,6 @@ public class OrganizationActivity extends Activity {
 	private int mPosition;
 	private Item mOrganization;
 	private PocketSlateDbHelper mPocketDbHelper;
-	private Point mLogoRes;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +29,6 @@ public class OrganizationActivity extends Activity {
 		setContentView(R.layout.activity_organization);
 
 		getActionBar().setHomeButtonEnabled(true);
-
-		Point resolution = new Point();
-		getWindowManager().getDefaultDisplay().getSize(resolution);
 
 		mTitle = (TextView)findViewById(R.id.organization_title);
 		mLogo = (ImageView)findViewById(R.id.organization_logo);

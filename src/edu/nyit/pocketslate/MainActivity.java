@@ -446,16 +446,6 @@ public class MainActivity extends Activity {
 		startActivity(orgActivityIntent);
 	}
 	
-	private void startStaffActivity(String table, int position) {
-		Bundle bundle = new Bundle();
-		bundle.putInt("position", position);
-		bundle.putString("table", table);
-
-		Intent staffActivityIntent = new Intent(this, StaffActivity.class);
-		staffActivityIntent.putExtra("staff", bundle);
-		startActivity(staffActivityIntent);
-	}
-
 	/**
 	 * Instantiates the AsyncTask and calls execute.
 	 */

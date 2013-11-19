@@ -171,7 +171,6 @@ public class ArticleActivity extends Activity {
 			NavUtils.navigateUpFromSameTask(this);
 			return super.onOptionsItemSelected(item);
 		}
-
 	}
 
 	/**

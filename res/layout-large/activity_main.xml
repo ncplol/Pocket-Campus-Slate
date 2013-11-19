@@ -9,7 +9,7 @@
         android:id="@+id/item_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/splash"
+        android:background="@drawable/nyit_splash"
         android:choiceMode="singleChoice"
         android:divider="#FFCC00"
         android:dividerHeight="1dp" />

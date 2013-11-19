@@ -294,7 +294,7 @@ public class MainActivity extends Activity {
 		menuItems.add(new MenuSection("That's What She Said", "thats_what_she_said"));
 		menuItems.add(new MenuSection("Bears to Watch", "bears_to_watch"));
 		menuItems.add(new MenuHeader(""));
-		menuItems.add(new MenuOption("Settings", "", R.drawable.ic_action_settings));
+		//menuItems.add(new MenuOption("Settings", "", R.drawable.ic_action_settings));
 		menuItems.add(new MenuOption("About", "", R.drawable.ic_action_about));
 
 		// Instantiate MenuListAdapter and set sliding menu to DrawerListAdapter.
@@ -313,6 +313,8 @@ public class MainActivity extends Activity {
 			if(position < 12) {
 				mItemList.setSelectionAfterHeaderView();
 				selectMenuItem(drawerItem.getTable());
+			} else {
+				startAboutActivity();
 			}
 		}
 	}
@@ -386,6 +388,14 @@ public class MainActivity extends Activity {
 		mItemListAdapter.update(mOpenTable);
 		mItemListAdapter.notifyDataSetChanged();
 		mDrawerLayout.closeDrawer(mDrawerList);
+	}
+	
+	/**
+	 * 
+	 */
+	private void startAboutActivity() {
+		Intent aboutActivityIntent = new Intent(this, AboutActivity.class);
+		startActivity(aboutActivityIntent);
 	}
 
 	/**
@@ -703,23 +713,9 @@ public class MainActivity extends Activity {
 		 */
 		private InputStream downloadUrl(String urlString) throws IOException {
 
-			//			try {
-			//				URL url = new URL(urlString);
-			//				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			//				conn.setReadTimeout(5000 /* milliseconds */);
-			//				conn.setConnectTimeout(5000/*milliseconds*/);
-			//				conn.setRequestMethod("GET");
-			//				conn.setDoInput(true);
-			//				conn.connect();
-			//				InputStream stream = conn.getInputStream();
-			//				return stream;
-			//			} catch(IOException e) {
-			//				return getApplicationContext().getAssets().open("rss.xml");	
-			//			}
-
 			URL url = new URL(urlString);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setReadTimeout(15000 /* milliseconds */);
+			conn.setReadTimeout(20000 /* milliseconds */);
 			conn.setConnectTimeout(5000/*milliseconds*/);
 			conn.setRequestMethod("GET");
 			conn.setDoInput(true);

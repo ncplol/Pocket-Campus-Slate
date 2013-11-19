@@ -19,7 +19,8 @@ import android.util.LruCache;
 import android.widget.ImageView;
 
 /**
- * 
+ * <p>Title: BitmapWorkerTask.java</p>
+ * <p>Description: </p>
  * @author jasonscott
  *
  */
@@ -39,6 +40,13 @@ public class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
 		}
 	};
 
+	/**
+	 * 
+	 * @param imageView
+	 * @param u
+	 * @param reqWidth
+	 * @param reqHeight
+	 */
 	public BitmapWorkerTask(ImageView imageView, String u, int reqWidth, int reqHeight) {
 		// Use a WeakReference to ensure the ImageView can be garbage collected
 		imageViewReference = new WeakReference<ImageView>(imageView);
@@ -158,11 +166,11 @@ public class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
 	}
 
 	/**
-	 * 
-	 * @param url
-	 * @param reqWidth
-	 * @param reqHeight
-	 * @return
+	 * Returns a bitmap decoded from InputStream of HttpUrlConnection to an image's url
+	 * @param url - String representation of images URL
+	 * @param reqWidth - integer, requested width of the image
+	 * @param reqHeight -integer, requested height of the image
+	 * @return Bitmap 
 	 */
 	public static Bitmap decodeBitmapFromNetwork(String url, int reqWidth, int reqHeight) {
 
@@ -186,33 +194,9 @@ public class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
 	}
 
 	/**
-	 * 
-	 * @param res
-	 * @param resId
-	 * @param reqWidth
-	 * @param reqHeight
-	 * @return
-	 */
-	public static Bitmap decodeBitmapFromResource(Resources res, int resId,
-			int reqWidth, int reqHeight) {
-
-		// First decode with inJustDecodeBounds=true to check dimensions
-		final BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inJustDecodeBounds = true;
-		BitmapFactory.decodeResource(res, resId, options);
-
-		// Calculate inSampleSize
-		options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-		// Decode bitmap with inSampleSize set
-		options.inJustDecodeBounds = false;
-		return BitmapFactory.decodeResource(res, resId, options);
-	}
-
-	/**
-	 * Makes a connection to a given URL and returns InputStream
+	 * Makes a connection to a given URL and returns InputStream.
 	 * @param urlString
-	 * @return
+	 * @return stream - InputStream from HttpUrlConnection
 	 * @throws IOException
 	 */
 	private static InputStream downloadUrl(String urlString) throws IOException {
@@ -229,7 +213,8 @@ public class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
 
 
 	/**
-	 * 
+	 * <p>Title: AsyncDrawable.java</p>
+	 * <p>Description:</p>
 	 * @author jasonscott
 	 *
 	 */

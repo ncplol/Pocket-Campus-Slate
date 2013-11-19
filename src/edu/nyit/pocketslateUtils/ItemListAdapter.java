@@ -120,7 +120,7 @@ public class ItemListAdapter extends BaseAdapter {
 			//			task.execute(item.imageUrl);
 			loadBitmap(mImage, item.imageUrl, 250, 250);
 		} else {
-			mImage.setImageResource(R.drawable.splash_horizontal);
+			mImage.setImageResource(R.drawable.nyit_splash_horizontal);
 		}
 		return v;
 	}

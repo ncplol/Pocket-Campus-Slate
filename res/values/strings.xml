@@ -14,6 +14,15 @@
     <string name="remove_title">Remove</string>
     <string name="section">Sections</string>
     
+    <!-- About page  -->
+    <string name="about_version">Version 2.0</string>
+	<string name="about_copy">© NYIT Campus Slate 2013</string>
+	<string name="about_company">NYIT Old Westbury IEEE Software Division</string>
+	<string name="about_app">The Pocket Campus Slate app is designed and developed by NYIT students studying Computer Science. The IEEE Software Division is a branch of the IEEE Organization on campus dedicated to creating original work for the school and outside clients.</string>
+	<string name="about_feedback">If you would like to send feedback to the developers send an email to nyit-ieee-software-division@googlegroups.com.</string>	
+	<string name="nick_text">Nick Corso-Passaro</string>
+	<string name="jason_text">Jason Scott</string>
+	
     <!-- For StaffActivity testing -->
     <string name="test_title">Erica Brandt – Editor in Chief</string>
     <string name="test_image_url">http://www.campusslate.com/wp-content/uploads/2013/10/erica-298x374.jpg</string>

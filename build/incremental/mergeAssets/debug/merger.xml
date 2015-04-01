@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="/Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/assets" >
+            <file
+                name="orgs.xml"
+                path="/Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/assets/orgs.xml" />
+        </source>
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/build-types/debug/assets" />
+    </dataSet>
+
+</merger>

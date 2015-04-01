@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3366CC"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/about_app_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/about_feedback_text"
+        android:layout_below="@+id/about_company_text"
+        android:text="@string/about_app"
+        android:textColor="#FFF"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/about_company_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/about_app_text"
+        android:layout_below="@+id/about_copy_text"
+        android:text="@string/about_company"
+        android:textColor="#FFF"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/about_copy_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/about_company_text"
+        android:layout_below="@+id/about_version_text"
+        android:text="@string/about_copy"
+        android:textColor="#FFF"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/jason_photo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/about_feedback_text"
+        android:layout_marginLeft="56dp"
+        android:layout_toRightOf="@+id/nick_photo"
+        android:contentDescription="@string/jason_text"
+        android:src="@drawable/jason_scott" />
+
+    <ImageView
+        android:id="@+id/nick_photo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignRight="@+id/about_company_text"
+        android:layout_alignTop="@+id/jason_photo"
+        android:layout_marginRight="28dp"
+        android:contentDescription="@string/nick_text"
+        android:src="@drawable/nick_corso_passaro" />
+
+    <TextView
+        android:id="@+id/about_version_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/about_copy_text"
+        android:layout_alignParentTop="true"
+        android:text="@string/about_version"
+        android:textColor="#FFF"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/about_feedback_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/about_app_text"
+        android:layout_centerHorizontal="true"
+        android:text="@string/about_feedback"
+        android:textColor="#FFF"
+        android:textIsSelectable="true"
+        android:textSize="12sp" 
+        android:autoLink="all"/>
+
+    <TextView
+        android:id="@+id/jason_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/jason_photo"
+        android:layout_alignRight="@+id/jason_photo"
+        android:layout_marginRight="33dp"
+        android:text="@string/jason_text"
+        android:textColor="#FFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/nick_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/nick_photo"
+        android:layout_toRightOf="@+id/about_version_text"
+        android:text="@string/nick_text"
+        android:textColor="#FFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

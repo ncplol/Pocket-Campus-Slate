@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="menu_array">
-        <item>All Stories</item>
-        <item>Clubs and Organizations</item>
-        <item>Slate Staff</item>
-        <item>About</item>
-        <item>Help</item>
-    </string-array>
+
+    <string name="app_name">Pocket Slate</string>
+    <string name="action_settings">Settings</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-
-    <string name="app_name">Pocket Campus Slate</string>
-    <string name="action_settings">Settings</string>
-
+    <string name="refresh">Refresh</string>
+    <string name="search_title">Search</string>
+    <string name="save_title">Save</string>
+    <string name="open_web_title">Open Web</string>
+    <string name="share_title">Share</string>
+    <string name="search_hint">Search</string>
+    <string name="remove_title">Remove</string>
+    <string name="section">Sections</string>
+    
+    <!-- About page  -->
+    <string name="about_version">Version 2.0</string>
+	<string name="about_copy">© NYIT Campus Slate 2013</string>
+	<string name="about_company">NYIT Old Westbury IEEE Software Division</string>
+	<string name="about_app">The Pocket Campus Slate app is designed and developed by NYIT students studying Computer Science. The IEEE Software Division is a branch of the IEEE Organization on campus dedicated to creating original work for the school and outside clients.</string>
+	<string name="about_feedback">If you would like to send feedback to the developers send an email to nyit-ieee-software-division@googlegroups.com.</string>	
+	<string name="nick_text">Nick Corso-Passaro</string>
+	<string name="jason_text">Jason Scott</string>
+	
 </resources>

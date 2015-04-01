@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item
+        android:id="@+id/article_action_save"
+        android:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/article_action_open_link"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/open_web_title"
+        android:icon="@drawable/ic_action_web"/>
+	
+    <!-- TODO article_action_share -->
+    
+</menu>

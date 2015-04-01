@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/item_action_search"
+        android:actionViewClass="android.widget.SearchView"
+        android:icon="@drawable/ic_action_search"
+        android:showAsAction="collapseActionView|ifRoom|withText"
+        android:title="@string/search_title"/>
+    <item
+        android:id="@+id/item_action_save"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/save_title"/>
+    
+<!--      android:icon="@drawable/ic_action_favorite" -->
+    <item
+        android:id="@+id/item_action_share"
+        android:icon="@drawable/ic_action_share"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/share_title"/>
+
+</menu>

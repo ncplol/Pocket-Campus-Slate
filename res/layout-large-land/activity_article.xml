@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3366CC" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3366CC"
+        android:orientation="vertical" >
+
+        <!-- Article's image -->
+
+        <ImageView
+            android:id="@+id/article_image"
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:layout_alignParentTop="true"
+            android:background="#000000"
+            android:contentDescription="@string/app_name"
+            android:padding="5dp" />
+
+        <RelativeLayout
+            android:id="@+id/article_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/article_image"
+            android:background="#70000000"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <TextView
+                android:id="@+id/article_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFCC00"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/article_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:textColor="#FFCC00"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/article_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/article_header"
+            android:padding="5dp"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/article_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/article_author"
+            android:autoLink="all"
+            android:padding="10dp"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/article_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/article_image"
+            android:layout_alignParentLeft="true"
+            android:background="#50000000"
+            android:padding="10dp"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+</ScrollView>

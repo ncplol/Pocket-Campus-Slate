@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dp"
+ >
+
+    <!-- Menu Option left-sided thumbnail -->
+
+    <ImageView
+        android:id="@+id/menu_option_image"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginRight="8dp"
+        android:padding="3dp"
+        android:contentDescription="@string/app_name" />
+
+    <!-- Title of option -->
+
+    <TextView
+        android:id="@+id/menu_option_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/menu_option_image"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:typeface="sans" />
+
+</RelativeLayout><!-- From: file:/Users/jasonscott/Documents/School/NYIT/IEEE/Software%20Division/PocketSlateAndroid/workspace/PocketSlate/res/layout/menu_list_row.xml -->

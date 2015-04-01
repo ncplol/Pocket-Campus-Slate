@@ -1,0 +1,17 @@
+# incremental data. DO NOT EDIT.
+# format is <lastModified> <length> <SHA-1> <path>
+# Encoding is UTF-8
+1382652004000 2147 2b17c846ec3f1b5a4c2547fc9a72e344dbb13975 /Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/src/edu/nyit/pocketslate/Constants.java
+1382993515000 5626 63611bceab2ac81a5524908132b3e46730c02619 /Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/src/edu/nyit/pocketslate/ItemActivity.java
+1382568800000 1435 7abed754d9a1f3b84d9f04beeef0d4c4b2c474c6 /Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/src/edu/nyit/pocketslateUtils/PocketSlateReaderContract.java
+1381622229000 2795 d6683f7eeab87680fd530bbb9ce7bed0be4e0f24 /Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/src/edu/nyit/pocketslateUtils/MenuListAdapter.java
+1382305014000 1028 ad3cfcc432e37cea35522cd723adbfc2bc2fa305 /Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/src/edu/nyit/pocketslate/Item.java
+1382567059000 2320 2c9d108733cfd335d7a89e416b26914faf9131fd /Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/src/edu/nyit/pocketslateUtils/OrganizationsXmlParser.java
+1382569099000 6816 7a9b396958c56ea4a994493c6a272efd0d2ad7d3 /Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/src/edu/nyit/pocketslateUtils/PocketSlateDbHelper.java
+1382562075000 3807 af85970920bfdd7bf98d7ce81ec2f2717c286041 /Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/src/edu/nyit/pocketslateUtils/ItemListAdapter.java
+1380825724000 413 2d8b0fca611e56c199c1bc42893fe7efe4998cbd /Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/src/edu/nyit/pocketslateExceptions/BuildDateException.java
+1382647354000 10940 1b0c7b967bdb612e3028f0c1a6e6d49d33a4b78f /Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/src/edu/nyit/pocketslateUtils/PocketSlateXmlParser.java
+1382993515000 20166 7110fb0a0ed9e50739362bbc5ad8bd01e1bd081d /Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/src/edu/nyit/pocketslate/MainActivity.java
+1382305142000 636 4ad407ec33b8599008d0e607dcf81dc2ba21a55f /Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/src/edu/nyit/pocketslate/Organization.java
+1381429302000 141 43fc26a4cc40b70361af8087b11e503ee9572686 /Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/src/edu/nyit/pocketslate/StaffActivity.java
+1380825629000 203 88d5b5cd0482a0689814f5693509fc9278e2e77a /Users/jasonscott/Documents/School/NYIT/IEEE/Software Division/PocketSlateAndroid/workspace/PocketSlate/src/edu/nyit/pocketslate/SettingsActivity.java

@@ -124,6 +124,9 @@ public class PocketSlateXmlParser {
 
 	/**
 	 * Adds an entry to the database.
+     * NOTE: The "Top Stories" tag no longer exists or is no longer used on the website.
+     * I have no intention of updating this app with the website so this quick fix is all I can do.
+     * Now it just dumps the "News" and "Features" tags into the "Top Stories" table so it will display something when the app starts.
 	 * @param item - Item to be stored.
 	 */
 	public void addItem(Item item) {

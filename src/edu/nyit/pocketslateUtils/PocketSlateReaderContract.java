@@ -43,7 +43,8 @@ public final class PocketSlateReaderContract {
 			"editorials", 
 			"thats_what_she_said", 
 			"bears_to_watch",
-		"search"};
+		    "search"
+        };
 		
 		// Staff table names
 		public static final String[] STAFF_TABLE_NAMES = {

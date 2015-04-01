@@ -127,7 +127,7 @@ public class PocketSlateXmlParser {
 	 * @param item - Item to be stored.
 	 */
 	public void addItem(Item item) {
-		if(item.category.equals("Top Stories")) {
+		if(item.category.equals("News") || item.category.equals("Features")) {
 			mDbHelper.addItem(item, ItemEntry.TABLE_NAMES[TOP_STORIES]);
 		} else if(item.category.equals("News")) {
 			mDbHelper.addItem(item, ItemEntry.TABLE_NAMES[NEWS]);
